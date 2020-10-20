@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.RoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.RoleMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_code roleCode, menu_code menuCode, update_time updateTime, remark , `status`
+  </sql>
+  <select id="selectMenu" parameterType="java.lang.String" resultType="com.antelopeh.home.model.RoleMenu">
+    SELECT
+     <include refid="Base_Column_List"/>
+     FROM `role_menu`
+    where 
+    <if test="_parameter != null and _parameter !=''">
+      role_code = #{roleCode}
+    </if> ORDER BY menu_code;
+  </select>
+</mapper>

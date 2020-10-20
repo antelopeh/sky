@@ -1,0 +1,154 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+ext{
+    spring_version = "5.2.8.RELEASE"
+    spring_security_version = "4.2.14.RELEASE"
+    mysql_version = "5.1.45"
+    servlet_version = "3.1.0"
+    freemarker_version = "2.3.30"
+    mybatis_version = "3.4.4"
+    mybatis_spring_version = "1.3.1"
+    commons_lang_version = "2.6"
+    commons_lang3_version = "3.9"
+    lombok_version = "1.18.12"
+    jredis_version = "2.9.3"
+    atomikos_version = "4.0.6"
+    druid_version = "1.1.22"
+    docx4j_version = "3.3.5"
+    poi_version = "3.15"
+    aspectj_version = "1.9.5"
+    logback_version = "1.1.11"
+    logback_spring_version = "0.1.4"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    implementation("org.springframework:spring-core:${spring_version}") {
+        exclude group: "commons-logging", module: "commons-logging"
+    }
+    implementation(
+            //spring web依赖
+            "org.springframework:spring-aop:${spring_version}",
+            "org.springframework:spring-webmvc:${spring_version}",
+            "org.springframework:spring-web: ${spring_version}",
+            "org.freemarker:freemarker:${freemarker_version}",
+            "org.aspectj:aspectjweaver:${aspectj_version}",
+            "org.aspectj:aspectjrt:${aspectj_version}",
+            //spring核心依赖
+            "org.springframework:spring-beans:${spring_version}",
+            "org.springframework:spring-context:${spring_version}",
+            "org.springframework:spring-context-support:${spring_version}",
+            //spring dao依赖
+            "org.springframework:spring-jdbc:${spring_version}",
+            "org.springframework:spring-tx:${spring_version}",
+            "commons-lang:commons-lang:${commons_lang_version}",
+            "org.apache.commons:commons-lang3:${commons_lang3_version}",
+            "org.apache.poi:poi:${poi_version}",
+            "org.apache.poi:poi-ooxml:${poi_version}",
+            "org.apache.poi:poi-scratchpad:${poi_version}",
+            "org.mybatis:mybatis:${mybatis_version}",
+            "org.mybatis:mybatis-spring:${mybatis_spring_version}",
+            "javax.transaction:jta:1.1",
+            //日志
+            "ch.qos.logback:logback-core:${logback_version}",
+            "ch.qos.logback:logback-classic:${logback_version}",
+            "org.logback-extensions:logback-ext-spring:${logback_spring_version}",
+            //权限
+//            "org.springframework.security:spring-security-core:${spring_security_version}",
+            //分布式事务
+            "com.atomikos:transactions:${atomikos_version}",
+            "com.atomikos:transactions-jta:${atomikos_version}",
+            "com.atomikos:transactions-jms:${atomikos_version}",
+            "com.atomikos:transactions-jdbc:${atomikos_version}",
+            "com.atomikos:ate:${atomikos_version}",)
+
+    implementation("org.docx4j:docx4j:${docx4j_version}") {
+        exclude group: "org.slf4j", module: "slf4j-log4j12"
+        exclude group: "log4j", module: "log4j"
+    }
+
+    implementation(
+            "redis.clients:jedis",
+             "mysql:mysql-connector-java",
+            //"javax.servlet:javax.servlet-api",
+            "org.springframework.data:spring-data-redis",
+            "org.springframework.security:spring-security-core",
+            "org.springframework.security:spring-security-web",
+            "org.springframework.security:spring-security-config",
+            "org.springframework.security:spring-security-messaging",
+            // "io.lettuce:lettuce-core:5.2.2.RELEASE"
+    )
+
+    implementation("org.slf4j:log4j-over-slf4j:1.7+")
+    implementation("org.slf4j:jcl-over-slf4j:1.7+")
+    implementation("org.slf4j:jul-to-slf4j:1.7+")
+
+
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.23'
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.7.0'
+    compile group: 'taglibs', name: 'standard', version: '1.1.2'
+    compile group: 'jstl', name: 'jstl', version: '1.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    //spring test依赖
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.2.8.RELEASE'
+    //文件上传
+    compile group: 'commons-io', name: 'commons-io', version: '2.7'
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+    compileOnly("org.projectlombok:lombok:${lombok_version}")
+    compileOnly("org.projectlombok:lombok:${lombok_version}")
+    annotationProcessor("org.projectlombok:lombok:${lombok_version}")
+
+    constraints{
+        implementation("redis.clients:jedis:${jredis_version}") {
+            force = true
+        }
+        implementation("mysql:mysql-connector-java:${mysql_version}") {
+            force = true
+        }
+        implementation("org.springframework.data:spring-data-redis:1.8.23.RELEASE") {
+            // implementation("org.springframework.data:spring-data-redis:2.0.0.RELEASE") {
+            // implementation("org.springframework.data:spring-data-redis:2.2.5.RELEASE") {
+            force = true
+        }
+        implementation("org.springframework.security:spring-security-web:${spring_security_version}") {
+            force = true
+        }
+        implementation("org.springframework.security:spring-security-web:${spring_security_version}") {
+            force = true
+        }
+        implementation("org.springframework.security:spring-security-config:${spring_security_version}") {
+            force = true
+        }
+        implementation("org.springframework.security:spring-security-messaging:${spring_security_version}") {
+            force = true
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}

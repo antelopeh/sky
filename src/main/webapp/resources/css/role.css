@@ -1,0 +1,74 @@
+.ct_infContent{margin: 24px 0 15px 0}
+.ct_infContent>.topBoxs{margin-top: -24px;}
+.ct_infContent{margin-top: 20px;}
+.ct_infButtom{margin-top: 10px;text-align:center;}
+.ct_formItem>p{color:#646464}
+.roleboxs,.mathingboxs,.jdTreeboxs{float: left;min-height: inherit;}
+.roleboxs{width: 20%;margin-left:150px}
+.roleboxs .title,.jdTreeboxs .title{padding:10px 15px;background-color: #D70C1A;color: #FFFFFF;border-radius: 4px 4px 0 0;}
+.roleboxs .content,.jdTreeboxs .content{height:inherit;width:100%;border: 1px solid #dfdfdf;background-color: #f9f9f9;border-top:none;border-radius:0 0 4px 4px;}
+.jdTreeboxs .content .ztreeW,.roleboxs .content{overflow: auto;}
+.jdTreeboxs .content .ztree,.roleboxs .content .ct_labelboxs{padding:15px;}
+.content .ct_labelboxs label{display: block;font-weight: normal;}
+.content .ct_labelboxs label input{margin-right: 6px;}
+.ct_labelboxs input[type="radio"],.ct_labelboxs input[type="checkbox"]{margin:0;margin-right: 6px;vertical-align: sub;}
+.mathingboxs{width: 6%;height: 100%;background: url(../../resources/img/img_jdmatching.png) no-repeat center;}
+.roleboxs,.mathingboxs,.jdTreeboxs{float: left;min-height: inherit;}
+.roleboxs,.mathingboxs,.jdTreeboxs{float: left;min-height: inherit;}
+.jdTreeboxs{width: 20%;}
+.roleboxs .title,.jdTreeboxs .title{padding:10px 15px;background-color: #A9A9A9;color: #FFFFFF;border-radius: 4px 4px 0 0;}
+.jdTreeboxs .title h2{width:80%;display: inline-block;}
+.jdTreeboxs .title a{display: inline-block;line-height: 16px;color: inherit;width: 20%;text-align: right;}
+.roleboxs .content,.jdTreeboxs .content{height:inherit;width:100%;border: 1px solid #dfdfdf;background-color: #f9f9f9;border-top:none;border-radius:0 0 4px 4px;}
+.jdTreeboxs .content .ztreeW,.roleboxs .content{overflow: auto;}
+.jdTreeboxs .content .ztree,.roleboxs .content .ct_labelboxs{padding:15px;}
+.jdTreeboxs .content .ztreeW{height: 80%;width: 100%;float: left;overflow: auto;}
+.jdTreeboxs .content .ztreeW+.ztreeW{border-left: 1px solid #DFDFDF;}
+.jdTreeboxs .content .remarkW{height: 20%;width: 100%;background-color: #FFFFFF;border-top: 1px solid #d0d0d0;border-radius: 0 0 5px 5px;clear: both;}
+.jdTreeboxs .content .remarkW p{padding: 10px 15px;line-height: 22px;color:#969696}
+.du_buttonBoxs {margin: 30px 0 20px 0;text-align: center;}
+.du_buttonBoxs button{padding:6px 52px;font-size: 18px;}
+.du_buttonBoxs button+button{margin-left: 10px;}
+.panel-collapse .du_buttonBoxs{margin:10px 0 0 0;text-align:right}
+
+.ct_containers .ct_tabsContainer{padding: 10px 15px 15px 15px;}
+.ct_tabsContainer h1{font-size: 24px;color: #D70C1A;font-weight: normal;padding: 6px 0 10px 0;border-bottom:2px solid #D70C1A}
+.ct_tabsContainer h1>.glyphicon{font-size:22px;margin:0 4px;color:#DF3D48;cursor: pointer;}
+.ct_tabsContainer h1>.glyphicon:hover{color:#D70C1A;transition: color 0.2s;}
+.ct_tabsContainer h1 .operationIcon{float:right;}
+.ct_tabsContainer h1 .operationIcon span+span{margin-left:10px}
+.ct_tabsContainer h1 .timeChange{color:#D70C1A;font-size:18px;cursor:pointer}
+.ct_tabsContainer h1 .timeChange:hover{color:#cb212d;font-weight:border}
+.layerBody .ct_tabsContainer{padding:15px;}
+.layerBody .ct_tabsContainer .ct_infContent{margin:0;}
+.ct_tabsContainer h1 >.collection{vertical-align: middle;color: #ea7914;}
+.ct_tabsContainer h1 >.collection:hover{color: #ea7914;}
+
+.ct_tabsContainer.ct_navSubtabs{padding:10px;height: 100%;}
+.ct_tabsContainer.ct_navSubtabs>.tab-content .tab-pane{padding: 0;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs li .close-tab{color:inherit;font-size:12px;position:static;padding:0;vertical-align:middle;margin:0 -12px 0 10px;display: inline-block;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs li.active .close-tab{color:inherit;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs{padding-right: 34px;position: relative;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap{position: relative;white-space: nowrap;height: 30px;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .dropdown{margin-right: 10px;position: absolute;top: 0;right: 0;line-height: inherit;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap button.dropdown-toggle{padding: 0 8px;border:0;line-height: 29px;color: #646464;border-radius: 2px 2px 0 0 !important;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap button.dropdown-toggle:hover{background-color: transparent;color: #ec4a55;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap button.dropdown-toggle:focus,.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .open button.dropdown-toggle,
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap button.dropdown-toggle.active{background-color: #ec4a55;color: #fff;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .dropdown-menu{right: 0;left:auto;top:28px;box-shadow: none;border-color: #ec4a55;border-radius: 2px 0 2px 2px;min-width:auto}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .dropdown .caret{margin:0;border:4px solid transparent;border-top-color: inherit;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs>.dropdown{right: 34px;margin-left:4px}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs .dropdown .caret{margin-left: 4px;vertical-align: middle;}
+.ct_tabsContainer.ct_navSubtabs>.nav-tabsWrap .nav-tabs .dropdown .ellipsis{max-width: 6em;display: inline-block;vertical-align: top;}
+
+.content .ct_labelboxs label{display: block;font-weight: normal;}
+.content .ct_labelboxs label input{margin-right: 6px;}
+.roleMathboxs>p{padding-bottom: 20px;}
+.roleMathboxs .content{padding:15px 0 0 15px;border-top: 1px solid #e1e1e1;}
+
+.successBtn{background-color: #d70c1a;color: #FFFFFF;border:none}
+.successBtn:hover{background-color: #F10E1D;color: #FFFFFF;}
+.successBtn:focus{background-color: #C10B17;color: #FFFFFF;}
+.layui-layer-title{background-color: red}
+
+.layui-layer-title{background:#D3D3D3; color:#fff; border: none;}

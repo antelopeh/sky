@@ -1,0 +1,165 @@
+* { margin: 0; padding: 0; }
+body, html { width: 100%; height: 100%; overflow: hidden; position: relative; }
+body { background: #eee; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; padding: 0; }
+p, ul, li, ol { margin: 0; padding: 0; list-style: none; }
+p { word-wrap: break-word; word-break: normal; }
+table { border-collapse: collapse; border-spacing: 0; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+.home { width: 100%; height: 100%; }
+.swiper-container { width: 100%; height: 100%; }
+.swiper-slide { text-align: center; font-size: 18px; background: #fff; background-size: 100%; background-repeat: no-repeat; position: relative;  /* Center slide text vertically */ display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center; }
+em { font-style: normal; }
+
+/*  */
+.cloud { position: absolute; top: 10%; width: 100%; animation: arrow 2s linear infinite alternate; }
+.chunk { width: 80px; display: block; height: 6px; background-color: #bb5404; margin-bottom: 10px; }
+
+/* 第一屏 */
+.one img { position: absolute; }
+
+/*  */
+.audio-state { position: fixed; top: 3%; right: 10px; border: none; outline: none; opacity: 1; z-index: 99; }
+.audio-stop { width: 30px; display: none; }
+.audio-play { width: 30px; -webkit-animation: icon1 1s 0s infinite; }
+.audio-stop img, .audio-play img { width: 100%; }
+
+/* 云左右动画 */
+@-webkit-keyframes arrow {
+    100% { transform: translateX(-20%); }
+}
+@keyframes arrow {
+    100% { transform: translateX(-20%); }
+}
+@-webkit-keyframes arrow3 {
+    100% { transform: translateX(20%); }
+}
+@keyframes arrow3 {
+    100% { transform: translateX(20%); }
+}
+@-webkit-keyframes arrow2 {
+    100% { transform: translateY(5px); }
+}
+@keyframes arrow2 {
+    100% { transform: translateY(5px); }
+}
+@-webkit-keyframes icon1 {
+    0% { opacity: 1; -webkit-transform: rotate(0deg); }
+    100% { opacity: 1; -webkit-transform: rotate(360deg); }
+}
+@keyframes icon1 {
+    0% { opacity: 1; -webkit-transform: rotate(0deg); }
+    100% { opacity: 1; -webkit-transform: rotate(360deg); }
+}
+
+/*!*第一屏*!
+.logo { width: 38%; left: 20px; top: 20px; position: absolute; }*/
+
+.heart{
+    width: 40%;
+    left: 30%;
+    top: 40%;
+}
+.sd-left{
+    width: 55%;
+    left: 0;
+    top: 20%;
+}
+.sd-bottom{
+    width: 55%;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 99;
+}
+.tips1{
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    top: 20%;
+    border-bottom: 1px solid #dfdfdf;
+    z-index: 99;
+}.tips2{
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    top: 30%;
+    z-index: 99;
+
+}.tips3{
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    bottom: 10%;
+    z-index: 99;
+
+}
+
+
+/*第一屏*/
+.logo { width: 42%; left: 20px; top: 20px; position: absolute; }
+.one .img1{ top: 12%; width: 88.33%; }
+.one .img2 { top: 43%; width: 63%; left: 0; }
+.one .img3 { bottom: 32.18%; width: 42.12%; right: 0; display: none; }
+.one .img3.word1 { bottom: 35.18%; width: 42.12%; right: 0; display: none; }
+.one img.oneBtn { bottom: 20px; width: 40px; margin-left: -20px; left: 50%; animation: arrow2 2s linear infinite alternate; }
+.prizeinfo { font-size: 14px; position: absolute; right: 10px; bottom: 30px; color: #fff; font-weight: bold; padding-bottom: 1px; border-bottom: 1px solid #fff; }
+
+
+  /*第二屏*/
+
+.center{
+    position: absolute;
+    width: 96%;
+    height: 90%;
+    background: url(/resources/img/birthday/w_logo.png) center center;
+    background-size: 100% 100%;
+}
+.center div{
+    text-align: left;
+    width: 70%;
+    margin-left:15%;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.center .info{
+    margin-top: 10px;
+    text-indent: 2em;
+    line-height: 24px;
+    letter-spacing: 2px;
+    text-justify:inter-ideograph;
+
+}
+.center .name{
+    margin-top: 20px;
+}
+.center .sender{
+    text-align: right;
+    line-height: 80px;
+}
+.bottom-logo{
+    width: 50%;
+    left: 8%;
+    bottom: 6%;
+    position: absolute;
+}
+.hb{
+    margin-top: 70px;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    z-index: 99;
+}
+
+
+
+

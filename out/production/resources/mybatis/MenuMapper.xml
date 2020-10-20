@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_pcode" jdbcType="VARCHAR" property="menuPcode" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menu_sort" jdbcType="INTEGER" property="menuSort" />
+    <result column="menu_status" jdbcType="VARCHAR" property="menuStatus" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menu_code, menu_name, menu_pcode, menu_url, menu_sort, menu_status, update_time, 
+    remark
+  </sql>
+
+  <select id="selectMenuByCode" resultType="string" parameterType="string">
+    SELECT menu_name FROM `menu`
+    <if test="_parameter != null and _parameter != ''">
+      WHERE menu_code = #{menuCode};
+    </if>
+  </select>
+
+  <select id="selectUrlByCode" resultType="string" parameterType="string">
+    SELECT menu_url FROM `menu`
+    <if test="_parameter != null and _parameter != ''">
+      WHERE menu_code = #{menuCode};
+    </if>
+  </select>
+
+  <select id="selectUrlByName" resultType="java.lang.String">
+    SELECT menu_url FROM `menu`
+    <if test="_parameter != null and _parameter != ''">
+      WHERE menu_name = #{menu_name};
+    </if>
+  </select>
+</mapper>
