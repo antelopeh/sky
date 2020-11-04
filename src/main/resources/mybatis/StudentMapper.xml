@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.antelopeh.home.model.Student">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="identity_code" jdbcType="VARCHAR" property="identityCode"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/><!-- 该字段使用class_code查询class表结果返回-->
+        <result column="nation" jdbcType="VARCHAR" property="nation"/>
+        <result column="politics" jdbcType="VARCHAR" property="politics"/>
+        <result column="enter_time" jdbcType="TIMESTAMP" property="enterTime"/>
+        <result column="birth_time" jdbcType="TIMESTAMP" property="birthTime"/>
+        <result column="is_inland" jdbcType="VARCHAR" property="isInland"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+
+    <sql id="Base_sql">
+        s.id , s.code , s.name , s.sex , s.identity_code , (select name from class c where c.code = s.class_code) as class_name , s.nation , s.politics , s.enter_time , s.birth_time , s.is_inland , s.address , s.user_code , s.status
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="StuSearch">
+        SELECT
+        <include refid="Base_sql"/>
+        FROM Student s
+        ORDER BY s.class_code,s.code
+        <if test="start_row != null and pagr_row != null">
+            limit #{start_row},#{pagr_row};
+        </if>
+        <if test="start_row == null or pagr_row == null">
+            limit 0 , 10;
+        </if>
+    </select>
+    
+    <select id="getCount" resultType="int">
+        SELECT COUNT(1)
+        FROM Student s;
+    </select>
+
+    <select id="selectStu" resultMap="BaseResultMap" parameterType="StuSearch">
+        SELECT
+        <include refid="Base_sql"/>
+        FROM Student s
+        WHERE
+            <trim prefixOverrides="and">
+                <if test="stuName != null and stuName != ''">
+                    and s.name = #{stuName}
+                </if>
+                <if test="stuNum != null and stuNum != ''">
+                    and s.code like CONCAT('%',#{stuNum},'%')
+                </if>
+                <if test="sex != null and sex != ''">
+                    and sex = #{sex}
+                </if>
+                <if test="grade != null and grade !=''">
+                    and s.class_code like CONCAT((SELECT param_value FROM sys_parameters WHERE param_id = #{grade}),'%')
+                </if>
+                <if test="clas !=null and clas !=''">
+                    and s.class_code in (SELECT `code` FROM `class` WHERE dept_code LIKE CONCAT(#{clas},'%'))
+                </if>
+                <if test="dept != null and dept != ''">
+                    and s.class_code in (SELECT `code` FROM `class` WHERE dept_code LIKE CONCAT(#{dept},'-%'))
+                </if>
+
+            </trim>
+        ORDER BY s.class_code,s.code
+        <if test="start_row != null and pagr_row != null">
+            limit #{start_row},#{pagr_row};
+        </if>
+        <if test="start_row == null or pagr_row == null">
+            limit 0 , 10;
+        </if>
+    </select>
+
+    <select id="getCountForSelect" resultType="Integer">
+        SELECT
+        IFNULL(COUNT(1),0)
+        FROM Student s
+        WHERE
+        <trim prefixOverrides="and">
+            <if test="stuName != null and stuName != ''">
+                and s.name = #{stuName}
+            </if>
+            <if test="stuNum != null and stuNum != ''">
+                and s.code like CONCAT('%',#{stuNum},'%')
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="grade != null and grade !=''">
+                and s.class_code like CONCAT((SELECT param_value FROM sys_parameters WHERE param_id = #{grade}),'%')
+            </if>
+            <if test="clas !=null and clas !=''">
+                and s.class_code in (SELECT `code` FROM `class` WHERE dept_code LIKE CONCAT(#{clas},'%'))
+            </if>
+            <if test="dept != null and dept != ''">
+                and s.class_code in (SELECT `code` FROM `class` WHERE dept_code LIKE CONCAT(#{dept},'-%'))
+            </if>
+
+        </trim>
+        ORDER BY s.class_code,s.code
+        <if test="start_row != null and pagr_row != null">
+            limit #{start_row},#{pagr_row};
+        </if>
+        <if test="start_row == null or pagr_row == null">
+            limit 0 , 10;
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.DeptMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.Dept">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode"/>
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+    <result column="dept_fullname" jdbcType="VARCHAR" property="deptFullname"/>
+    <result column="dept_pcode" jdbcType="VARCHAR" property="deptPcode"/>
+    <result column="dept_status" jdbcType="VARCHAR" property="deptStatus"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    d.id, d.dept_code, d.dept_name, d.dept_fullname, d.dept_pcode, d.dept_status
+  </sql>
+
+  <select id="selectClass" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from `dept` d
+    WHERE
+    <if test="_parameter != null and _parameter !=''">
+      dept_pcode =#{dept};
+    </if>
+  </select>
+
+  <select id="selectDept" resultMap="BaseResultMap">
+    SELECT *
+    from `dept` d
+    WHERE dept_pcode = '0'
+  </select>
+
+</mapper>

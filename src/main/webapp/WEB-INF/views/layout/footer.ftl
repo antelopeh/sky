@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${rc.contextPath}/resources/tab/js/popper.min.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/resources/tab/js/poca.bundle.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/resources/tab/js/default-assets/active.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/pager/js/jquery.pagination.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/resources/js/common.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/resources/js/refresh.js"></script>
 <#include "layout/loading.ftl">

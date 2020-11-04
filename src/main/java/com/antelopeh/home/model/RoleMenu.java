@@ -1,8 +1,6 @@
 package com.antelopeh.home.model;
 
-import java.io.Serializable;
 import java.util.Date;
-
 import com.antelopeh.core.base.model.BaseModel;
 import lombok.Data;
 

@@ -10,6 +10,7 @@
         <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
         <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
         <result column="title_image" property="titleImage" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_sql">
         <where>
@@ -34,6 +35,9 @@
                 </if>
                 <if test="titleImage !=null and titleImage !=''">
                     and u.title_image=#{titleImage}
+                </if>
+                <if test="status != null and status != ''">
+                    and u.status=#{status}
                 </if>
             </trim>
         </where>

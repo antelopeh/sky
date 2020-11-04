@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.SysParametersMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.SysParameters">
+    <id column="param_id" jdbcType="INTEGER" property="paramId" />
+    <result column="param_value" jdbcType="VARCHAR" property="paramValue" />
+    <result column="param_name" jdbcType="VARCHAR" property="paramName" />
+    <result column="param_desc" jdbcType="VARCHAR" property="paramDesc" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="creator_time" jdbcType="TIMESTAMP" property="creatorTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    s.param_id, s.param_value, s.param_name, s.param_desc, s.sort, s.creator_time, s.remark, s.status
+  </sql>
+
+  <select id="selectGrade" resultType="com.antelopeh.home.model.SysParameters">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_parameters s
+    WHERE
+    <trim prefixOverrides="and">
+        <if test="status != null and status != ''">
+          and s.status = #{status}
+        </if>
+        <if test="paramDesc != null and paramDesc != ''">
+          and s.param_desc = #{paramDesc}
+        </if>
+    </trim>
+
+    <if test="sort != null and sort != ''">
+      ORDER BY s.sort
+    </if>
+  </select>
+
+</mapper>

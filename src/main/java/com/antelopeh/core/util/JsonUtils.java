@@ -1,71 +1,109 @@
 package com.antelopeh.core.util;
 
-import java.util.List;
+import java.io.IOException;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
-/**
- *
- */
 public class JsonUtils {
 
-    // 定义jackson对象
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static ObjectMapper objectMapper;
 
     /**
-     * 将对象转换成json字符串。
-     * <p>Title: pojoToJson</p>
-     * <p>Description: </p>
-     * @param data
-     * @return
+     *
+     * 使用泛型方法，把json字符串转换为相应的JavaBean对象。
+     *
+     * (1)转换为普通JavaBean：readValue(json,Student.class)
+     *
+     * (2)转换为List:readValue(json,List.class).但是如果我们想把json转换为特定类型的List，比如List<Student>，就不能直接进行转
+     *
+     * 因为readValue(json,List.class)返回的其实是List<Map>类型，你不能指定readValue()的第二个参数是List<Student>.c
+     *
+     * 我们可以把readValue()的第二个参数传递为Student[].class.然后使用Arrays.asList();方法把得到的数组转换为特定类型的List。
+     *
+     * (3)转换为Map：readValue(json,Map.class)
+     *
+     * 我们使用泛型，得到的也是泛型
+     *
+     * @param content
+     *            要转换的JavaBean类型
+     *
+     * @param valueType
+     *            原始json字符串数据
+     *
+     * @return JavaBean对象
      */
-    public static String objectToJson(Object data) {
+
+    public static <T> T toBean(String content, Class<T> valueType) {
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
+        }
+        content = content.replaceAll("＆","&").replaceAll("&ldquo;","\"");
+        content = content.replaceAll("&lsquo;","'");
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        objectMapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+
         try {
-            String string = MAPPER.writeValueAsString(data);
-            return string;
+            return objectMapper.readValue(content, valueType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 把JavaBean转换为json字符串
+     *
+     * (1)普通对象转换：toJson(Student)
+     *
+     * (2)List转换：toJson(List)
+     *
+     * (3)Map转换:toJson(Map)
+     *
+     * 我们发现不管什么类型，都可以直接传入这个方法
+     *
+     * @param object
+     *            JavaBean对象
+     *
+     * @return json字符串
+     */
+    public static String toJson(Object object) {
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
+        }
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
+        objectMapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    /**
-     * 将json结果集转化为对象
-     *
-     * @param jsonData json数据
-     * @param beanType 对象中的object类型
-     * @return
-     */
-    public static <T> T jsonToPojo(String jsonData, Class<T> beanType) {
-        try {
-            T t = MAPPER.readValue(jsonData, beanType);
-            return t;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 将json数据转换成pojo对象list
-     * <p>Title: jsonToList</p>
-     * <p>Description: </p>
-     * @param jsonData
-     * @param beanType
-     * @return
-     */
-    public static <T>List<T> jsonToList(String jsonData, Class<T> beanType) {
-        JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-        try {
-            List<T> list = MAPPER.readValue(jsonData, javaType);
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    public static void main(String[] args) {
+//		String data = "[{\"password\":\"1234\",\"username\":\"lp\"},{\"password\":\"4567\",\"username\":\"ch\"}]";
+//		List<Map<String, Object>> items = JsonUtils.toBean(data, List.class);
+//		for (Map<String, Object> map : items) {
+//			System.out.println(map.get("password") + "\t" + map.get("username"));
+//		}
+//
+//		String[] arr = {"1","2","2"};
+//		Set<String> asList = new HashSet<>(Arrays.asList(arr));
+//		System.out.println(asList);
+//
+//		asList.add("2");
+//		System.out.println(asList);
     }
 
 }

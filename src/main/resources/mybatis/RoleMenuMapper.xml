@@ -9,9 +9,11 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, role_code roleCode, menu_code menuCode, update_time updateTime, remark , `status`
   </sql>
+
   <select id="selectMenu" parameterType="java.lang.String" resultType="com.antelopeh.home.model.RoleMenu">
     SELECT
      <include refid="Base_Column_List"/>
@@ -21,4 +23,5 @@
       role_code = #{roleCode}
     </if> ORDER BY menu_code;
   </select>
+
 </mapper>

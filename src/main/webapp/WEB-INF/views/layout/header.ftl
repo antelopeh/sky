@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/css/all-skins.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/plugins/datatables/dataTables.bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/plugins/bootstrap-select/bootstrap-select.css"/>
+    <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/pager/css/jquery.pagination.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/plugins/ztree/css/zTreeStyle/metro.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/plugins/calendar/css/calendar.css"/>

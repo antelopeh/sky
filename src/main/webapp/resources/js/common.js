@@ -1,3 +1,85 @@
+$(document).ready(function () {
+    init_article_pagination();
+})
+
+function init_article_pagination() {
+    do_submit_bug();
+    page_article_select_callback(0);
+
+}
+
+// 分页信息回调函数
+function page_article_select_callback(new_current_page, containers) {
+    var path = $('#select_form').attr('action');
+    var condition = $('#select_form').serialize();
+    var param = "start_row="+new_current_page * featch_pager_rows_data()+"&pagr_row="+featch_pager_rows_data();
+    var rownum=featch_pager_rows_data();
+    $('#page').val(new_current_page + 1);
+    param = param + "&" + condition;
+    var requestMethod = "GET";
+    if($("#select_form").attr('method') == "POST"){
+        requestMethod = "POST";
+    }
+    if(requestMethod == "POST"){
+        param = convertToObject(param);
+    }
+    goPage(path,param,rownum);
+}
+
+function goPage(path,param,rownum){
+    $.ajax({
+        url: $('#context_path').val() +$('#hiddenList').val(),
+        data: param,
+        type: "POST",
+        async: false,
+        success:function (data,textStatus) {
+            $('#tableContainer').html(data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            layer.alert('系统错误：' + errorThrown);
+        }
+    })
+
+
+    $('#page_count').html($('#count').val());
+    $('#rows').val(rownum);
+    $('#jpager').pagination({
+        max_entries: $('#count').val(),
+        items_per_page: $('#rows').val(),
+        current_page: $('#page').val() - 1,
+        num_display_entries: 5,
+        num_edge_entries: 1,
+        load_first_page: false,
+        next_text: "后一页",
+        prev_text: "前一页",
+        //record_text:"共{0}页/总计{1}条记录",
+        callback: page_article_select_callback
+    });
+}
+
+
+// 获取查询每页行数
+function featch_pager_rows_data(){
+
+    if($('#rows').length>0){
+        return $('#rows').val();
+    }else{
+        if($("#pageCount").val()){
+            return $("#pageCount").val();
+        }
+        var a =  window.screen.height;
+        var b = window.screen.width;
+        if (false && (a==864&&b==1536 || a==1080&&b==1920)){
+            $("#rows").attr("value",'12');
+            return "12";
+        }
+        return "10";
+    }
+
+
+}
+
+
 $(function(){
 	var token = $("#csrf_token").val();
 	var header = $("#csrf_header").val();
@@ -12,8 +94,6 @@ $(function(){
 	}).ajaxSend(function(e, xhr, options) {
 	    xhr.setRequestHeader(header, token);
 	});
-
-    $('#tabs').addtabs();
     
     // 重载框架！！
     window.Addtabs.resize();
@@ -39,7 +119,14 @@ $(function(){
     $(document).ready(function(){   
     	  $('.form-control').bind("contextmenu",function(e){   
     	      return false;   
-    	  });   
+    	  });
+
+        if ($('#sex')){
+            var html = "<option value=''>--请选择--</option>";
+            html = html + "<option value='0'>男</option>"
+                + "<option value='1'>女</option>";
+            $('#sex').html(html).selectpicker('refresh');
+        }
     	 }); 
     //改变剪切板内的值
     $(function($){
@@ -78,94 +165,127 @@ $(function(){
     });
 });
 
-
-//$(function(){
-//    $('td').zclip({
-//        path: '/tower/resources/js/ZeroClipboard.swf',
-//        copy: function(){//复制内容
-//            return $(this).text().trim();
-//            },
-//        afterCopy:function(){/* 复制成功后的操作 */
-//        	return $(this).text().trim();
-//        }    
-//    });
-//});
-
-
-function open_parent_tab(url,tabId,title){
-	var tabbtn = parent.$(window.parent.document).find("#tab_none");
-	$(tabbtn).attr("url",url);
-	$(tabbtn).attr("data-addtab",tabId);
-	$(tabbtn).text(title);
-	tabbtn.trigger("click");
-	$(tabbtn).hide();
-}
-
-function open_parent_tab_or_refrash_iframe(url,tabId,title){
-    var iframe = parent.$(window.parent.document).find("#tab_"+tabId).find("iframe");
-    if(iframe.length>0){
-        iframe.attr('src', url);
-        var tabbtn = parent.$(window.parent.document).find("#tab_none");
-        tabbtn.trigger("click");
+function showClass(dept) {
+    var html = "<option value=''>--请选择--</option>";
+    if($('#dept').val() === null || $('#dept').val() ===''){
+        $('#clas').html(html);
     }else{
-        var tabbtn = parent.$(window.parent.document).find("#tab_none");
-        $(tabbtn).attr("url",url);
-        $(tabbtn).attr("data-addtab",tabId);
-        $(tabbtn).text(title);
-        tabbtn.trigger("click");
-        $(tabbtn).hide();
+        $.ajax({
+            url: $("#context_path").val() + '/dept/getClass',
+            data: {dept:dept},
+            dataType: "json",
+            type: "POST",
+            async: false,
+            success: function (data) {
+                    if ($.trim(data) != "False"){
+                        for (var i = 0; i < data.length; i++){
+                            html = html + "<option value='" + data[i].deptCode + "'>" + data[i].deptName + "</option>";
+                        }
+                        $("#clas").html(html);
+                        $('#clas').selectpicker('refresh');
+                    }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.alert('系统错误：' + errorThrown);
+            }
+        });
     }
 }
 
-function refrash_iframe(tabId,url){
-	var iframe = parent.$(window.parent.document).find("#tab_"+tabId).find("iframe");
-	iframe.attr('src', url);
-}
-
-function refresh_iframe(obj){
-  /*  var id = $('[id^=tab_tab_iframe_][class*=active]', window.parent.document).find('a').attr("aria-controls");
-	$('#'+ id, window.parent.document).find("iframe")[0].contentWindow.location.reload(true);
-    alert($('#'+ id, window.parent.document).find("iframe").attr("id"));*/
-    var id = $('[id^=tab_tab_iframe_][class*=active]', window.parent.document).find('a').attr("aria-controls");
-    $('#'+ id, window.parent.document).find("iframe")[0].contentWindow.location.reload(true);
-}
-
-$().ready(function(){
-	
-});
-
-function my_ajax_file_upload(url, data, upload_callback, complete_callback, exception_callback){
-    // $("#entry").parents('form').after('<div class="progress" style="width:100%;height:16px;border:0px;margin-bottom:0px;"><div class="bar" style="margin:0px auto;text-align:center;width:100%;background:yellow;border:0px;"><span class="percent">文件上传进度：0%</span></div></div>');
-    if(!$("#entry").parents('form').next().hasClass('progress')) $("#entry").parents('form').after('<div class="progress" style="width:100%;height:16px;border:0px;margin-bottom:0px;"><div class="bar" style="margin:0px auto;text-align:center;width:100%;background:yellow;border:0px;"><span class="percent">文件上传进度：0%</span></div></div>');
-    var progress = $('.progress'), percent = $('.percent'), bar = $('.bar');
-    $("#entry").parents('form').ajaxSubmit({
-        url : url,
-        data : data,
-        type: "post",
-        dataType: 'json',
-        beforeSend: function() { //开始上传
-            progress.show();
-            percent.html('0%'); //显示进度为0%
-        },
-        uploadProgress: function(event, position, total, percentComplete) {
-            percent.html('文件上传进度：' + percentComplete + '%'); //显示上传进度百分比
-            if(percentComplete == 100){
-                percent.html('上传文件成功，开始导入数据！');
-                bar.css('background', '#CCFF33');
-                if(upload_callback){upload_callback()};
-            }
-        },
-        success: function(data) {
-            if(complete_callback){complete_callback(data)};
-            clear_file_elem();
-            progress.hide();
-        },
-        error:function(xhr){
-            alert(xhr.responseText);
-            if(exception_callback){exception_callback(xhr)};
-            progress.hide();
-        }
+// submit的单元素提交模式
+function do_submit_bug(){
+    $("form").each(function(){
+        $(this).append('<input type="text" value="不要删除这个input，只有在form里不只有一个input的情况下，在input里按回车才不会提交表单" style="display:none" />')
     });
+}
+
+/**
+ * 将格式为： key=value&key=value 的字符串转化为js对象
+ * @param {Object} params
+ */
+function convertToObject(params){
+    var obj = {};
+    var keyValues = params.split('&');
+    var flag = false;
+    for(var i=0; i<keyValues.length; i++){
+        var keyVal = keyValues[i].split('=');
+        if (obj.hasOwnProperty(keyVal[0])) {
+            if( obj[keyVal[0]] instanceof Array ) {
+                // if( typeof(obj[keyVal[0]]) === 'array') {
+                obj[keyVal[0]].push(decodeURIComponent(keyVal[1]?keyVal[1]:""));
+            }else{
+                if(obj[keyVal[0]]!=decodeURIComponent(keyVal[1]?keyVal[1]:"")){
+                    var value = [];
+                    value[0]=(obj[keyVal[0]]);
+                    value[1]=( decodeURIComponent(keyVal[1]?keyVal[1]:""));
+                    obj[keyVal[0]] =  value;
+                    flag = true;
+                }
+            }
+        }else{
+            obj[keyVal[0]] = decodeURIComponent(keyVal[1]?keyVal[1]:"");
+        }
+    }
+
+    if(flag){
+        //传统方式序列化参数
+        //当提交的参数是数组(e.g. {name:[value,value,value]} ),如果是false的话,则提交时会是"name[]=value&name[]=value"
+        //如果设置成true,则提交时会是"name=value&name=value"
+        jQuery.ajaxSettings.traditional = true;
+    }
+    return obj
+}
+
+function getUrlVars() {
+    var vars = [],
+        hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function search_button(url) {
+    var param = $('#select_form').serialize();
+    if ($('.pagination .current:not(.prev)').length > 0)
+        param = param + '&start_row='+($('.pagination .current:not(.prev)').html()-1) * featch_pager_rows_data()+'&pagr_row='+featch_pager_rows_data();
+    else
+        param = param + '&pagr_row='+featch_pager_rows_data();
+    $.ajax({
+        url: $('#context_path').val() +url,
+        data: param,
+        type: "POST",
+        async: false,
+        success:function (data,textStatus) {
+            $('#tableContainer').html(data);
+            $('#count').val($('#itemCount').val());
+            $('#pageLeft .count').html('&nbsp;&nbsp;总计：'+$('#itemCount').val()+'条记录')
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            layer.alert('系统错误：' + errorThrown);
+        }
+    })
+
+
+    $('#jpager').pagination({
+        max_entries: $('#count').val(),
+        items_per_page: $('#rows').val(),
+        current_page: $('#page').val() - 1,
+        num_display_entries: 5,
+        num_edge_entries: 1,
+        load_first_page: false,
+        next_text: "后一页",
+        prev_text: "前一页",
+        //record_text:"共{0}页/总计{1}条记录",
+        callback: page_article_select_callback
+    });
+}
+
+function refresh_search(){
+    $('.searchbtn')[0].click();
 }
 
 //清空file控件选择信息
@@ -176,50 +296,6 @@ function clear_file_elem(){
         $(this).remove();
     });
 }
-
-function layer_confirm(title, msg, lcancel, lsubmit){
-    layer.confirm( '<p style="text-align:center">'+msg+'</p>', {
-    	title:title,
-        btnAlign: 'c',
-        skin:'layui-layer-excel-out',
-        btn: ['取消','确定']
-    }, function(index){
-        layer.close(index);
-        try{ lcancel(); }catch(e){};
-    }, function(index){
-        layer.close(index);
-        try{ lsubmit(); }catch(e){};
-    });
-}
-
-function layer_choice(title, msg, btn1, btn2, lcancel, lsubmit){
-    layer.confirm( '<p style="text-align:center">'+msg+'</p>', {
-        title:title,
-        btnAlign: 'c',
-        skin:'layui-layer-choice-out',
-        btn: [btn1,btn2]
-    }, function(index){
-        layer.close(index);
-        try{ lcancel(); }catch(e){};
-    }, function(index){
-        layer.close(index);
-        try{ lsubmit(); }catch(e){};
-    });
-}
-
-function layerOpen(url,width,hight,title){
-    layer.open({
-        type: 2,
-        title: title,
-        shadeClose: true,
-        move:false,
-        content: url,
-        area: [width, hight],
-        maxmin: true,
-        scrollbar: false
-    });
-}
-
 
 Date.prototype.Format = function(fmt)
 {

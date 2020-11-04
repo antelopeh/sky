@@ -123,7 +123,7 @@ public class HomeController {
     @ResponseBody
     public String getAllUser(){
         List<User> users=userService.selectAll();
-        return JsonUtils.objectToJson(users);
+        return JsonUtils.toJson(users);
     }
 
     @RequestMapping("logout")

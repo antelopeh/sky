@@ -13,4 +13,5 @@ public class User extends BaseModel{
     private String userEmail;
     private String userTel;
     private String titleImage;
+    private String status;
 }

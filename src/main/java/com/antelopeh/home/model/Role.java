@@ -3,8 +3,6 @@ package com.antelopeh.home.model;
 import com.antelopeh.core.base.model.BaseModel;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * role
  * @author 

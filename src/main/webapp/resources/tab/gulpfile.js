@@ -78,7 +78,6 @@ gulp.task('css', function() {
       'node_modules/owl.carousel2/dist/assets/owl.carousel.min.css',
       'node_modules/elegant-icons/style.css',
       'node_modules/wowjs/css/libs/animate.css',
-      'node_modules/magnific-popup/dist/magnific-popup.css'
     ])
     .pipe(gulp.dest('src/css'))
 })

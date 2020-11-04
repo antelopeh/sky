@@ -99,12 +99,25 @@ ZWxjL2ltZ3ZpZXcyXzlfMTU5Mjg3NzU4MjAwNzY1MjFfODVfWzBdtrP2cQAAAABJRU5ErkJggg==" ><
         </a>
         <br><br><br><br><br>
         <a href="#findPassword" class="link">Forgot your password?</a><a href="register.ftl" class="link" methods="post">&nbsp Or register Now</a>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="hidden" name="uuid" value=""/>
         </form>
     </div>
 </div>
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-<input type="hidden" name="uuid" value=""/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="${rc.contextPath}/resources/plugins/html5shiv.min.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/resources/plugins/respond.min.js"></script>
+    <![endif]-->
+<script type="text/javascript" src="${rc.contextPath}/resources/tab/js/jquery.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/tab/js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/plugins/bootstrap/js/bootstrap-addtabs.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/plugins/tool/underscore-min.js"></script>
 <script type="application/javascript" src="${rc.contextPath}/resources/js/main.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/tab/js/jquery.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/tab/js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/resources/js/common.js"></script>
 </body>
-</html>
+<#include "layout/footer.ftl">
 

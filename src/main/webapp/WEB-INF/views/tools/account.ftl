@@ -34,7 +34,7 @@
 				<a href="javascript:void(0);" style="background: black" class="change-font btn btn-default btn-flat" data-addtab="iframe_0503"  onclick="null">个人设置</a>
 			</div>
 			<div class="pull-right">
-				<a href="logout" style="background: black" class="change-font btn btn-default btn-flat">安全登出</a>
+				<a href="/logout" style="background: black" class="change-font btn btn-default btn-flat">安全登出</a>
 			</div>
 		</li>
 	</ul>

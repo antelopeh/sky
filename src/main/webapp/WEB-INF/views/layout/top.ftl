@@ -8,7 +8,7 @@
             <nav class="classy-navbar justify-content-between" id="pocaNav">
 
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="./img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.html"><img src="" alt=""></a><!--./img/core-img/logo.png -->
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
