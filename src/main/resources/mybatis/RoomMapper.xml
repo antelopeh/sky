@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.Room">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_code" jdbcType="VARCHAR" property="roomCode" />
+    <result column="block_code" jdbcType="VARCHAR" property="blockCode" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, room_code, block_code, `status`
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM room
+    WHERE `status`='1'
+    <if test="start_row != null and pagr_row != null">
+      limit #{start_row},#{pagr_row};
+    </if>
+    <if test="start_row == null or pagr_row == null">
+      limit 0 , 10;
+    </if>;
+  </select>
+
+  <select id="getCount" resultType="string">
+    SELECT count(1) FROM room
+    WHERE `status` ='1'
+    ;
+  </select>
+
+  <select id="selectFloor" parameterType="string" resultType="string">
+    SELECT floor FROM room
+    WHERE `status`='1'
+    <if test="_parameter != null and _parameter !=''">
+      and block_code = #{blockCode}
+    </if>
+    GROUP BY floor;
+  </select>
+  
+  <select id="selectByBlock"  resultMap="BaseResultMap">
+    SELECT * FROM room
+    WHERE `status`='1'
+    <trim>
+      <if test="blockCode != null and blockCode !=''">
+        and block_code = #{blockCode}
+      </if>
+      <if test="roomCode != null and roomCode !=''">
+        and floor = #{roomCode}
+      </if>
+    </trim>
+    <if test="start_row != null and pagr_row != null">
+      limit #{start_row},#{pagr_row};
+    </if>
+    <if test="start_row == null or pagr_row == null">
+      limit 0 , 10;
+    </if>;
+  </select>
+
+  <select id="getCountByBlock" resultType="string">
+    SELECT count(1) FROM room
+    WHERE `status`='1'
+    <trim>
+      <if test="blockCode != null and blockCode !=''">
+        and block_code = #{blockCode}
+      </if>
+      <if test="roomCode != null and roomCode !=''">
+        and floor = #{roomCode}
+      </if>
+    </trim>;
+  </select>
+</mapper>

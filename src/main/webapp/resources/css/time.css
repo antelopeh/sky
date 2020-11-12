@@ -1,0 +1,72 @@
+/*垂直时间条样式*/
+.about2{padding-bottom: 80px;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,img,area,param{margin:0; padding:0;}
+body{font-size:12px;}
+.wrapper{box-sizing:border-box;width:90%;margin:auto;max-width:1200px;}
+html[xmlns] .clearfix-time{display:block;}
+body{font-size:12px;}
+.about2 .tit{text-align: center;}
+.about2  ul{background: url(sy51.png) repeat-y center; min-height: 600px}
+.clearfix-time{display:block;zoom:1;}
+ol,ul{padding-left:0; list-style:none;}
+.about2 .tit h6{color: #666;}
+.f12{font-size:12px;}
+th{font-style:normal;font-weight:normal;}
+h1,h2,h3,h4,h5,h6{font-size:100%; font-weight:normal;}
+.about2 .tit h5{color: whitesmoke;margin: 15px 0 15px;}
+.about2 .tit h6{margin-bottom: 15px}
+.f24{font-size:24px;}
+.about2 li:before{background: url(sy50.png) no-repeat center center; left: -62px;top: 12px; content: "";display: block;position: absolute;width: 17px;height: 17px;}
+.about2 li h4:hover{
+	color: #F8F8F8;
+	transition: all 1s;
+	transform: translateY(-15px);
+}
+
+.about2 li h4 {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  font-family: "Lato";
+  color: #ecf0f1;
+  text-transform: uppercase;
+  padding: 4px 0;
+  transition: 0.5s;
+}
+.about2 li h4::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 1px;
+  top: 100%;
+  left: 0;
+  background: #f55656;
+  transition: transform 0.5s;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.about2 li h4:hover {
+  color: #f5565690;
+}
+.about2 li h4:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+
+
+
+.f30{font-size:30px;}
+.f14{font-size:14px;}
+.f16{font-size:16px;}
+.about2 li:nth-child(2n):before{background: url(sy50.png) no-repeat center center; right: -62px;top: 12px;left: auto; content: "";display: block;position: absolute;width: 17px;height: 17px;}
+.about2 li h4{color: whitesmoke;transition: all 1.5s;}
+.about2 li p{color: #666;margin-top: 10px; height: auto; overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;}
+.future{text-align: center;color: #999;font-size: 12px;margin-top: 17px;}
+.clearfix-time:after{content:'\20';display:block;clear:both;visibility:hidden;line-height:0;height:0;}
+.about2 li:nth-child(1){margin-top: 0;}
+/* 表示1-3之间的间距 */
+.about2 li{float: right;width: 45%;text-align: left;position: relative;margin-top: 100px;}
+.about2 li:nth-child(2n) {float: left;text-align: right;margin-top: 90px;}
+.span{color: #666}

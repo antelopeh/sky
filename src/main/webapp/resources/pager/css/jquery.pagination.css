@@ -1,0 +1,39 @@
+#jpager {
+	float: right;
+	margin-right: 0px;
+}
+
+.pagination {
+	font-size: 80%;
+	margin: 0;
+}
+
+.pagination a {
+	text-decoration: none;
+	border: solid 1px #c8c8c8;
+	color: whitesmoke;
+}
+
+.pagination a,.pagination span {
+	display: block;
+	float: left;
+	padding: 6px 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	min-width: 1em;
+	text-align: center;
+	color: whitesmoke;
+}
+
+.pagination .current {
+	background: #d64635;
+	color: #fff;
+	border: 1px solid #d64635;
+}
+
+.pagination .current.prev,.pagination .current.next {
+	color: whitesmoke;
+	border-color: whitesmoke;
+	background: transparent;
+}
+

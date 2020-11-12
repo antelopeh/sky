@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antelopeh.home.mapper.OrderRoomMapper">
+  <resultMap id="BaseResultMap" type="com.antelopeh.home.model.OrderRoom">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_code" jdbcType="VARCHAR" property="roomCode" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="date_time" jdbcType="DATE" property="dateTime" />
+    <result column="time_start" jdbcType="INTEGER" property="timeStart" />
+    <result column="time_end" jdbcType="INTEGER" property="timeEnd" />
+    <result column="is_for_lesson" jdbcType="INTEGER" property="isForLesson" />
+    <result column="is_for_organization" jdbcType="INTEGER" property="isForOrganization" />
+    <result column="lesson_code" jdbcType="VARCHAR" property="lessonCode" />
+    <result column="organization_code" jdbcType="VARCHAR" property="organizationCode" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="week_time" jdbcType="INTEGER" property="weekTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, room_code, `user`, date_time, time_start, time_end, is_for_lesson, is_for_organization,
+    lesson_code, organization_code, `operator`, remark, `status`, week_time
+  </sql>
+  
+  <select id="selectByCode" resultMap="BaseResultMap">
+    SELECT * FROM order_room
+    WHERE
+    <trim>
+      <if test="blockCode != null and roomCode != null">
+        room_code = CONCAT(#{blockCode},'-',#{roomCode})
+      </if>
+      ORDER BY date_time,time_start,time_end;
+    </trim>
+  </select>
+
+  <select id="selectBydate" resultMap="BaseResultMap">
+    SELECT  * FROM order_room
+    WHERE
+    <trim>
+      <if test="roomCode != null and roomCode != ''">
+        room_code = #{roomCode}
+      </if>
+      <if test="date != null and date != ''">
+        and date_time = #{date}
+      </if>
+      ORDER BY date_time,time_start,time_end;
+    </trim>
+  </select>
+
+  <select id="selectByweek" resultMap="BaseResultMap">
+    SELECT * FROM order_room
+    WHERE
+    <trim>
+      <if test="roomCode != null and roomCode != ''">
+        room_code = #{roomCode}
+      </if>
+      <if test="date != null and date != ''">
+        and YEARWEEK(date_time) = YEARWEEK(#{date})
+      </if>
+      ORDER BY week_time DESC;
+    </trim>
+  </select>
+
+<!--  <if test="roomCode != null">-->
+<!--    room_code = #{roomCode,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="user != null">-->
+<!--    `user` = #{user,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="dateTime != null">-->
+<!--    date_time = #{dateTime,jdbcType=DATE},-->
+<!--  </if>-->
+<!--  <if test="timeStart != null">-->
+<!--    time_start = #{timeStart,jdbcType=INTEGER},-->
+<!--  </if>-->
+<!--  <if test="timeEnd != null">-->
+<!--    time_end = #{timeEnd,jdbcType=INTEGER},-->
+<!--  </if>-->
+<!--  <if test="isForLesson != null">-->
+<!--    is_for_lesson = #{isForLesson,jdbcType=INTEGER},-->
+<!--  </if>-->
+<!--  <if test="isForOrganization != null">-->
+<!--    is_for_organization = #{isForOrganization,jdbcType=INTEGER},-->
+<!--  </if>-->
+<!--  <if test="lessonCode != null">-->
+<!--    lesson_code = #{lessonCode,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="organizationCode != null">-->
+<!--    organization_code = #{organizationCode,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="operator != null">-->
+<!--    `operator` = #{operator,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="remark != null">-->
+<!--    remark = #{remark,jdbcType=VARCHAR},-->
+<!--  </if>-->
+<!--  <if test="status != null">-->
+<!--    `status` = #{status,jdbcType=VARCHAR},-->
+<!--  </if>-->
+</mapper>
