@@ -192,6 +192,29 @@ function showClass(dept) {
     }
 }
 
+function showRoom(bolckCode) {
+    var html = "<option value=''>--请选择--</option>";
+    $.ajax({
+        url:$("#context_path").val() + '/room/getRoom',
+        data:{blockCode:bolckCode},
+        dataType: "json",
+        type: "POST",
+        async: false,
+        success: function (data) {
+            if($.trim(data)!="False"){
+                for (var i = 0; i < data.length; i++){
+                    html = html + "<option value='" + data[i] + "'>" + "第 " + data[i] + " 层" + "</option>";
+                }
+                $("#roomCode").html(html);
+                $('#roomCode').selectpicker('refresh');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            layer.alert('系统错误：' + errorThrown);
+        }
+    })
+}
+
 // submit的单元素提交模式
 function do_submit_bug(){
     $("form").each(function(){
@@ -253,7 +276,8 @@ function search_button(url) {
     if ($('.pagination .current:not(.prev)').length > 0)
         param = param + '&start_row='+($('.pagination .current:not(.prev)').html()-1) * featch_pager_rows_data()+'&pagr_row='+featch_pager_rows_data();
     else
-        param = param + '&pagr_row='+featch_pager_rows_data();
+        param = param + '&start_row=0'+'&pagr_row='+featch_pager_rows_data();
+
     $.ajax({
         url: $('#context_path').val() +url,
         data: param,

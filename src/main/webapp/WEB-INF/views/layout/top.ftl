@@ -29,9 +29,9 @@
                             <li class="current-item">
                                 <a href="/login">Home</a>
                             </li>
-                            <#if menuMap?? && menuMap?size gt 0>
-                                <#list menuMap?keys as key>
-                                    <#assign item = menuMap[key]>
+                            <#if _MENU_MAP_?? && _MENU_MAP_?size gt 0>
+                                <#list _MENU_MAP_?keys as key>
+                                    <#assign item = _MENU_MAP_[key]>
                                     <li><a href="${url(key)}">${key}</a>
                                         <#if item?size gt 0>
                                         <ul class="dropdown">

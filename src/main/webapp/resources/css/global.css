@@ -33,6 +33,7 @@ iframe{display: block;}
     top: 100px;
     left: 350px;
     right: 350px;
+    min-height: 800px;
     padding: 10px 10px 10px 10px;
     margin-bottom: 20px;
     width: auto;

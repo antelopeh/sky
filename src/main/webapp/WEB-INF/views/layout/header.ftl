@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/css/AdminLTE.css"/>
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/css/global.css"/>
+    <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/css/time.css"/>
+    <link rel="stylesheet" type="text/css" href="${rc.contextPath}/resources/calendar/stylesheets/simple-calendar.css"/>
     <!--[if lt IE 9]>
     <script type="text/javascript" src="${rc.contextPath}/resources/plugins/html5shiv.min.js"></script>
     <script type="text/javascript" src="${rc.contextPath}/resources/plugins/respond.min.js"></script>

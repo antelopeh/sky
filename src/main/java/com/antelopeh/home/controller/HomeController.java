@@ -4,6 +4,7 @@ import com.antelopeh.core.filter.MySessionContext;
 import com.antelopeh.core.util.ConsoleUtils;
 import com.antelopeh.core.util.JsonUtils;
 import com.antelopeh.core.util.WebUtils;
+import com.antelopeh.home.common.Constants;
 import com.antelopeh.home.common.Operator;
 import com.antelopeh.home.mapper.UserMapper;
 import com.antelopeh.home.model.User;
@@ -78,7 +79,7 @@ public class HomeController {
             WebUtils.setOperator(request,operator(Tuser));
 
             getMenuMap(request,Tuser.getUserCode());
-            model.addAttribute("menuMap", WebUtils.getMenuMap(request));
+            model.addAttribute(Constants._MENU_MAP_, WebUtils.getMenuMap(request));
 
             Cookie cookie=new Cookie("skySession",Tuser.getUserCode()+"-"+session.getId());
             cookie.setPath("/");

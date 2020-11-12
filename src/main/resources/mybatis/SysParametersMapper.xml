@@ -16,7 +16,7 @@
     s.param_id, s.param_value, s.param_name, s.param_desc, s.sort, s.creator_time, s.remark, s.status
   </sql>
 
-  <select id="selectGrade" resultType="com.antelopeh.home.model.SysParameters">
+  <select id="selectGrade" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
     FROM sys_parameters s

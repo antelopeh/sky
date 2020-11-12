@@ -61,6 +61,7 @@ public class MsgController{
     @ResponseBody
     public ModelAndView stuList(HttpServletRequest request, HttpServletResponse response, Model model, StuSearch stu){
         if(MyStringUtils.isObjectFieldEmpty(stu)) {
+            model.addAttribute("grade",sysParametersService.seletGrade());
             model.addAttribute(Constants.SELECT_COUNTS,studentService.getCount());
             model.addAttribute(Constants.SELECT_RESULT, studentService.selectAll(stu));
         }
