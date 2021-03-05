@@ -1,21 +1,13 @@
 package com.antelopeh.home.controller;
 
-import com.antelopeh.core.util.MyStringUtils;
+import com.antelopeh.core.util.ObjectUtils;
 import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
-import com.antelopeh.home.model.Dept;
-import com.antelopeh.home.model.StuSearch;
-import com.antelopeh.home.model.Student;
-import com.antelopeh.home.model.Teacher;
-import com.antelopeh.home.service.DeptService;
-import com.antelopeh.home.service.StudentService;
-import com.antelopeh.home.service.SysParametersService;
-import com.antelopeh.home.service.TeacherService;
-import org.apache.commons.lang3.StringUtils;
+import com.antelopeh.home.model.*;
+import com.antelopeh.home.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +28,9 @@ public class MsgController{
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private SysParametersService sysParametersService;
@@ -60,7 +55,7 @@ public class MsgController{
     @RequestMapping("stuList")
     @ResponseBody
     public ModelAndView stuList(HttpServletRequest request, HttpServletResponse response, Model model, StuSearch stu){
-        if(MyStringUtils.isObjectFieldEmpty(stu)) {
+        if(ObjectUtils.isObjectFieldEmpty(stu)) {
             model.addAttribute("grade",sysParametersService.seletGrade());
             model.addAttribute(Constants.SELECT_COUNTS,studentService.getCount());
             model.addAttribute(Constants.SELECT_RESULT, studentService.selectAll(stu));
@@ -78,5 +73,22 @@ public class MsgController{
         student.setCode(code);
         model.addAttribute(Constants.SELECT_RESULT,studentService.select(student));
         return new ModelAndView("msg/student/stu_detail");
+    }
+    @RequestMapping("/createOne")
+    @ResponseBody
+    public Object createOne(HttpServletRequest request, HttpServletResponse response, Model model, User record){
+        if (ObjectUtils.isObjectFieldEmpty(record))
+            return new ModelAndView("msg/createOne");
+        else
+            return null;
+    }
+
+    @RequestMapping("/insertOne")
+    @ResponseBody
+    public String insertOne(HttpServletRequest request, HttpServletResponse response, Model model, User record){
+        if (!ObjectUtils.isObjectFieldEmpty(record)){
+            userService.insert(record);
+        }
+        return null;
     }
 }

@@ -19,7 +19,7 @@ public class RoleMenuServiceImpl extends BaseServiceImpl<RoleMenu> implements Ro
 
     @Override
     protected void setBaseMapper() {
-
+        super.mapper=roleMenuMapper;
     }
 
     @Override

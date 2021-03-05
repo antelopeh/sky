@@ -35,5 +35,10 @@ public class OrderRoomServiceImpl extends BaseServiceImpl<OrderRoom> implements 
         return orderRoomMapper.selectByweek(roomCode, date);
     }
 
+    @Override
+    public List<OrderRoom> selectResult(OrderRoom example) {
+        return orderRoomMapper.selectResult(example);
+    }
+
 
 }

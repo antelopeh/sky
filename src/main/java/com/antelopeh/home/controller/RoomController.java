@@ -2,7 +2,9 @@ package com.antelopeh.home.controller;
 
 import com.antelopeh.core.util.JsonUtils;
 import com.antelopeh.core.util.WebUtils;
+import com.antelopeh.home.model.Room;
 import com.antelopeh.home.service.RoomService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -26,5 +28,17 @@ public class RoomController {
         }else {
             return "False";
         }
+    }
+
+    @RequestMapping(value = "/getRooms", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String getRoom(String blockCode, String floor){
+        if (StringUtils.isNotBlank(blockCode) && StringUtils.isNotBlank(floor)) {
+            Room room = new Room();
+            room.setBlockCode(blockCode);
+            room.setFloor(floor);
+            return JsonUtils.toJson(roomService.selectByBlock(room));
+        }
+        return "False";
     }
 }

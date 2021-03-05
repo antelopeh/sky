@@ -27,34 +27,36 @@ function page_article_select_callback(new_current_page, containers) {
 }
 
 function goPage(path,param,rownum){
-    $.ajax({
-        url: $('#context_path').val() +$('#hiddenList').val(),
-        data: param,
-        type: "POST",
-        async: false,
-        success:function (data,textStatus) {
-            $('#tableContainer').html(data);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            layer.alert('系统错误：' + errorThrown);
-        }
-    })
+    if ($('#hiddenList').val() != "" && $('#hiddenList').val() != undefined){
+        $.ajax({
+            url: $('#context_path').val() +$('#hiddenList').val(),
+            data: param,
+            type: "POST",
+            async: false,
+            success:function (data,textStatus) {
+                $('#tableContainer').html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.alert('系统错误：' + errorThrown);
+            }
+        })
 
 
-    $('#page_count').html($('#count').val());
-    $('#rows').val(rownum);
-    $('#jpager').pagination({
-        max_entries: $('#count').val(),
-        items_per_page: $('#rows').val(),
-        current_page: $('#page').val() - 1,
-        num_display_entries: 5,
-        num_edge_entries: 1,
-        load_first_page: false,
-        next_text: "后一页",
-        prev_text: "前一页",
-        //record_text:"共{0}页/总计{1}条记录",
-        callback: page_article_select_callback
-    });
+        $('#page_count').html($('#count').val());
+        $('#rows').val(rownum);
+        $('#jpager').pagination({
+            max_entries: $('#count').val(),
+            items_per_page: $('#rows').val(),
+            current_page: $('#page').val() - 1,
+            num_display_entries: 5,
+            num_edge_entries: 1,
+            load_first_page: false,
+            next_text: "后一页",
+            prev_text: "前一页",
+            //record_text:"共{0}页/总计{1}条记录",
+            callback: page_article_select_callback
+        });
+    }
 }
 
 
@@ -215,6 +217,34 @@ function showRoom(bolckCode) {
     })
 }
 
+function showRooms(blockCode,floor) {
+    var html = "<option value=''>--请选择--</option>";
+    $.ajax({
+        url:$("#context_path").val() + '/room/getRooms',
+        data:{blockCode:blockCode ,floor:floor},
+        dataType: "json",
+        type: "POST",
+        async: false,
+        success: function (data) {
+            if($.trim(data)!="False"){
+                for (var i = 0; i < data.length; i++){
+                    html = html + "<option value='" + data[i].roomCode + "'>" + data[i].roomCode  + " 室" + "</option>";
+                }
+                $("#rooms").html(html);
+                $('#rooms').selectpicker('refresh');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            layer.alert('系统错误：' + errorThrown);
+        }
+    })
+}
+
+function showLesson(lessons) {
+    for (var i = 0; i < lessons.length; i++)
+        $('.dropdown-menu.inner:eq(3) li').eq(lessons[i] - 1).find('.text').css('text-decoration','line-through');
+}
+
 // submit的单元素提交模式
 function do_submit_bug(){
     $("form").each(function(){
@@ -309,6 +339,7 @@ function search_button(url) {
 }
 
 function refresh_search(){
+    $('.pagination a:eq(1)').click();//在刷新前将页数重置为1
     $('.searchbtn')[0].click();
 }
 

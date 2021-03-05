@@ -52,33 +52,33 @@
         <include refid="Base_sql" />;
     </select>
 
-    <update id="update" parameterType="com.antelopeh.home.model.User">
+    <update id="updateUser" parameterType="map">
         update `user` u
         set
         <trim prefixOverrides="and">
-            <if test="userCode != null and userCode !=''">
-                and u.user_code=#{userCode}
+            <if test="record.userCode != null and record.userCode !=''">
+                and u.user_code=#{record.userCode}
             </if>
-            <if test="userPwd != null and userPwd !=''">
-                and u.user_pwd=#{userPwd}
+            <if test="record.userPwd != null and record.userPwd !=''">
+                and u.user_pwd=#{record.userPwd}
             </if>
-            <if test="userNickname != null and userNickname !=''">
-                and u.user_nickname=#{userNickname}
+            <if test="record.userNickname != null and record.userNickname !=''">
+                and u.user_nickname=#{record.userNickname}
             </if>
-            <if test="userName != null and userName !=''">
-                and u.user_name=#{userName}
+            <if test="record.userName != null and record.userName !=''">
+                and u.user_name=#{record.userName}
             </if>
-            <if test="userEmail != null and userEmail !=''">
-                and u.user_email=#{userEmail}
+            <if test="record.userEmail != null and record.userEmail !=''">
+                and u.user_email=#{record.userEmail}
             </if>
-            <if test="userTel != null and userTel !=''">
-                and u.user_tel=#{userTel}
+            <if test="record.userTel != null and record.userTel !=''">
+                and u.user_tel=#{record.userTel}
             </if>
-            <if test="titleImage !=null and titleImage !=''">
-                and u.title_image=#{titleImage}
+            <if test="record.titleImage !=null and record.titleImage !=''">
+                and u.title_image=#{record.titleImage}
             </if>
         </trim>
-        where u.id=#{id}
+        where u.user_code=#{example.userCode}
     </update>
 
     <insert id="insert" parameterType="com.antelopeh.home.model.User">

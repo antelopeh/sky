@@ -21,8 +21,8 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
     }
 
     @Override
-    public List<Room> selectAll() {
-        return roomMapper.selectAll();
+    public List<Room> selectAll(Room room) {
+        return roomMapper.selectAll(room);
     }
 
     @Override

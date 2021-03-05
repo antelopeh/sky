@@ -17,7 +17,7 @@ public class UserRoleServiceImpl extends BaseServiceImpl<UserRole> implements Us
 
     @Override
     protected void setBaseMapper() {
-
+        super.mapper=userRoleMapper;
     }
 
     @Override

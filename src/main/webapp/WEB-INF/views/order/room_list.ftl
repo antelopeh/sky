@@ -6,13 +6,19 @@
         <colgroup>
             <col width="15%">
             <col width="15%">
-            <col width="30%">
+            <col width="15%">
+            <col width="15%">
+            <col width="15%">
+            <col width="25%">
         </colgroup>
 
         <thead  class="header">
         <tr role="row">
             <th>所在幢系</th>
             <th>教室编号</th>
+            <th>幕布</th>
+            <th>投影仪</th>
+            <th>话筒</th>
             <th></th>
         </tr>
 
@@ -25,6 +31,9 @@
                     <td style="vertical-align: middle;">${item.blockCode}幢教学楼</td>
                 </#if>
                 <td style="vertical-align: middle;">${item.roomCode}室</td>
+                <td style="vertical-align: middle;">${item.haveCurtain}</td>
+                <td style="vertical-align: middle;">${item.haveProjector}</td>
+                <td style="vertical-align: middle;">${item.haveMicrophone}</td>
                 <td style="vertical-align: middle"><a onclick="openDetails('${item.blockCode}','${item.roomCode}');" style="cursor:pointer;">查看使用详情</a></td>
             </tr>
         </#list>

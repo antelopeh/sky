@@ -50,9 +50,9 @@
     <logger name="freemarker" level="INFO" additivity="false"/>
     <logger name="com.atomikos" level="INFO" additivity="false"/>
     <logger name="org.apache" level="INFO" additivity="false"/>
-    <logger name="org.hibernate" level="INFO" additivity="false"/>
-    <logger name="org.eclipse.jetty" level="INFO" additivity="false"/>
-    <logger name="org.apache.kafka" level="DEBUG" additivity="false"/>
+<!--    <logger name="org.hibernate" level="INFO" additivity="false"/>-->
+<!--    <logger name="org.apache.kafka" level="DEBUG" additivity="false"/>-->
+<!--    <logger name="org.eclipse.jetty" level="INFO" additivity="false"/>-->
     <logger name="org.apache.jasper.compiler" level="FINE" additivity="false"/>
     <logger name="org.mybatis.spring" level="INFO" additivity="false"/>
     <logger name="org.springframework.web.servlet.mvc.method" level="FINE" additivity="false"/>

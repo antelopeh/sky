@@ -5,15 +5,24 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="room_code" jdbcType="VARCHAR" property="roomCode" />
     <result column="block_code" jdbcType="VARCHAR" property="blockCode" />
+    <result column="floor" jdbcType="VARCHAR" property="floor" />
+    <result column="have_curtain" jdbcType="VARCHAR" property="haveCurtain"/>
+    <result column="have_projector" jdbcType="VARCHAR" property="haveProjector"/>
+    <result column="have_microphone" jdbcType="VARCHAR" property="haveMicrophone"/>
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, room_code, block_code, `status`
+    room_code,block_code,floor,
+    (CASE have_curtain WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END) as have_curtain,
+    (CASE have_projector WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END) as have_projector,
+    (CASE have_microphone  WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END)as have_microphone,`status`
   </sql>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    SELECT * FROM room
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM room
     WHERE `status`='1'
     <if test="start_row != null and pagr_row != null">
       limit #{start_row},#{pagr_row};
@@ -39,22 +48,33 @@
   </select>
   
   <select id="selectByBlock"  resultMap="BaseResultMap">
-    SELECT * FROM room
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM room
     WHERE `status`='1'
     <trim>
       <if test="blockCode != null and blockCode !=''">
         and block_code = #{blockCode}
       </if>
-      <if test="roomCode != null and roomCode !=''">
-        and floor = #{roomCode}
+      <if test="floor != null and floor !=''">
+        and floor = #{floor}
+      </if>
+      <if test="roomCode != null and roomCode != ''">
+          and room_code like concat(#{roomCode},'%')
+      </if>
+      <if test="haveCurtain != null and haveCurtain !=''">
+        and have_curtain = #{haveCurtain}
+      </if>
+      <if test="haveProjector != null and haveProjector !=''">
+        and have_projector = #{haveProjector}
+      </if>
+      <if test="haveMicrophone != null and haveMicrophone !=''">
+        and have_microphone = #{haveMicrophone}
       </if>
     </trim>
     <if test="start_row != null and pagr_row != null">
       limit #{start_row},#{pagr_row};
     </if>
-    <if test="start_row == null or pagr_row == null">
-      limit 0 , 10;
-    </if>;
   </select>
 
   <select id="getCountByBlock" resultType="string">
@@ -64,9 +84,24 @@
       <if test="blockCode != null and blockCode !=''">
         and block_code = #{blockCode}
       </if>
-      <if test="roomCode != null and roomCode !=''">
-        and floor = #{roomCode}
+      <if test="floor != null and floor !=''">
+        and floor = #{floor}
       </if>
-    </trim>;
+      <if test="roomCode != null and roomCode != ''">
+        and room_code like concat(#{roomCode},'%')
+      </if>
+      <if test="haveCurtain != null and haveCurtain !=''">
+        and have_curtain = #{haveCurtain}
+      </if>
+      <if test="haveProjector != null and haveProjector !=''">
+        and have_projector = #{haveProjector}
+      </if>
+      <if test="haveMicrophone != null and haveMicrophone !=''">
+        and have_microphone = #{haveMicrophone}
+      </if>
+    </trim>
+    <if test="start_row != null and pagr_row != null">
+      limit #{start_row},#{pagr_row};
+    </if>
   </select>
 </mapper>

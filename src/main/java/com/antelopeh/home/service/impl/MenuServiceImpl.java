@@ -17,7 +17,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 
     @Override
     protected void setBaseMapper() {
-
+        super.mapper=menuMapper;
     }
 
     @Override

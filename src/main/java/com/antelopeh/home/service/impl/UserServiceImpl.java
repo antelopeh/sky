@@ -26,4 +26,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return userMapper.selectAll();
     }
 
+    @Override
+    public int updateUser(User record, User example){
+        return userMapper.updateUser(record, example);
+    }
+
 }

@@ -7,12 +7,10 @@ import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
 import com.antelopeh.home.common.Operator;
 import com.antelopeh.home.mapper.UserMapper;
+import com.antelopeh.home.model.Role;
 import com.antelopeh.home.model.User;
 import com.antelopeh.home.model.UserRole;
-import com.antelopeh.home.service.MenuService;
-import com.antelopeh.home.service.RoleMenuService;
-import com.antelopeh.home.service.UserRoleService;
-import com.antelopeh.home.service.UserService;
+import com.antelopeh.home.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -39,6 +37,9 @@ public class HomeController {
 
     @Autowired
     private UserRoleService userRoleService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private RoleMenuService roleMenuService;
@@ -141,12 +142,18 @@ public class HomeController {
 
 
     private Operator operator(User Tuser) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Operator operator=new Operator();
         operator.setName(Tuser.getUserName());
         operator.setCode(Tuser.getUserCode());
         operator.setPasswd(Tuser.getUserPwd());
         operator.setEmail(Tuser.getUserEmail());
         operator.setTitleimage(Tuser.getTitleImage());
+        operator.setPhone(Tuser.getUserTel());
+        HashMap<String,String> map = new HashMap<>();
+        Role role = roleService.selectByRoleCode(userRoleService.selectRoleCode(operator.getCode())).get(0);
+        map.put(userRoleService.selectRoleCode(operator.getCode()),role.getRoleName());
+        operator.setRoleMap(map);
         return operator;
     }
 }

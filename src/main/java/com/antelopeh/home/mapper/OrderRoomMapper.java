@@ -10,4 +10,5 @@ public interface OrderRoomMapper extends BaseMapper<OrderRoom> {
     List<OrderRoom> selectByCode(@Param("blockCode") String blockCode, @Param("roomCode") String roomCode);
     List<OrderRoom> selectBydate(@Param("roomCode") String roomCode, @Param("date") String date);
     List<OrderRoom> selectByweek(@Param("roomCode") String roomCode, @Param("date") String date);
+    List<OrderRoom> selectResult(OrderRoom example);
 }

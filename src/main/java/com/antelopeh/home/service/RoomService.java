@@ -6,7 +6,7 @@ import com.antelopeh.home.model.Room;
 import java.util.List;
 
 public interface RoomService extends BaseService<Room> {
-    List<Room> selectAll();
+    List<Room> selectAll(Room room);
     List<String> selectFloor(String blockCode);
     List<Room> selectByBlock(Room room);
     String getCount();

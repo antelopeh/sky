@@ -18,6 +18,4 @@ public class Role extends BaseModel {
     private Integer roleStatus;
 
     private String remark;
-
-    private static final long serialVersionUID = 1L;
 }

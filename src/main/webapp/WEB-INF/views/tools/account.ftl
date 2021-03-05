@@ -4,7 +4,7 @@
 	   <img src="${rc.contextPath}${operator.titleimage}" class="user-image" alt="User Image">
 	   <span class="hidden-xs">${operator.name}</span>
 	</a>
-	<ul class="dropdown-menu">
+	<ul class="dropdown-menu" style="color: black">
 		<!-- User image -->
 		<li class="user-header"><img src="${rc.contextPath}${operator.titleimage}" class="img-circle" alt="User Image">
 			<p>
@@ -31,7 +31,7 @@
 		<!-- Menu Footer-->
 		<li class="user-footer">
 			<div class="pull-left">
-				<a href="javascript:void(0);" style="background: black" class="change-font btn btn-default btn-flat" data-addtab="iframe_0503"  onclick="null">个人设置</a>
+				<a href="/system/modify" style="background: black" class="change-font btn btn-default btn-flat" data-addtab="iframe_0503"  onclick="">个人设置</a>
 			</div>
 			<div class="pull-right">
 				<a href="/logout" style="background: black" class="change-font btn btn-default btn-flat">安全登出</a>

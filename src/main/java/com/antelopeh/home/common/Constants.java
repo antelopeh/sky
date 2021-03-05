@@ -34,4 +34,6 @@ public class Constants {
     public static final String EXIST = "EXIST";
 
     public static final String FAIL = "FAIL";
+
+    public static final String EXAMPLE = "_example_";
 }

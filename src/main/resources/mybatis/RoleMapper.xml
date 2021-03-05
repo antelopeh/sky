@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.antelopeh.home.service.RoleService">
+<mapper namespace="com.antelopeh.home.mapper.RoleMapper">
   <resultMap id="BaseResultMap" type="com.antelopeh.home.model.Role">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
@@ -11,5 +11,13 @@
   <sql id="Base_Column_List">
     id, role_code, role_name, role_status, remark
   </sql>
+
+  <select id="selectByRoleCode" resultMap="BaseResultMap">
+    SELECT * FROM role
+    WHERE
+    <if test="_parameter != null and _parameter != ''">
+      role_code = #{roleCode}
+    </if>;
+  </select>
 
 </mapper>
