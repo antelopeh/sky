@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ApplyInfoService extends BaseService<ApplyInfo> {
     List<ApplyInfo> selectByExample(ApplyInfo example);
+    int countByExample(ApplyInfo example);
+    ApplyInfo selectByPrimaryKey(Integer id);
 }

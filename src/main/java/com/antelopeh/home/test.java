@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class test {
     public static void main(String[] args) throws ParseException {
-
+        String a = "A";
+        System.out.println(String.join("-",a,"101"));
     }
 }

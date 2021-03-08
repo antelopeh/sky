@@ -23,4 +23,14 @@ public class ApplyInfoServiceImpl extends BaseServiceImpl<ApplyInfo> implements 
     public List<ApplyInfo> selectByExample(ApplyInfo example) {
         return mapper.selectByExample(example);
     }
+
+    @Override
+    public int countByExample(ApplyInfo example) {
+        return mapper.countByExample(example);
+    }
+
+    @Override
+    public ApplyInfo selectByPrimaryKey(Integer id) {
+        return mapper.selectByPrimaryKey(id);
+    }
 }

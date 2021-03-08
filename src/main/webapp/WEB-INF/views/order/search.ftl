@@ -9,7 +9,7 @@
             <form id="select_form" action="${rc.contextPath}/order/getList" method="POST" style="border:none;width: 95%;">
                 <table class="query-table" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tbody>
-                    <tr class="up">
+                    <tr class="hint">
                         <td class="hint">
                             所在幢系：
                         </td>
