@@ -21,6 +21,11 @@ public class OrderRoomServiceImpl extends BaseServiceImpl<OrderRoom> implements 
     }
 
     @Override
+    public int insert(OrderRoom example) {
+        return orderRoomMapper.insert(example);
+    }
+
+    @Override
     public List<OrderRoom> selectByCode(String blockCode, String roomCode) {
         return orderRoomMapper.selectByCode(blockCode,roomCode);
     }

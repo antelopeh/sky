@@ -100,7 +100,7 @@
                     <tr class="up">
                         <td colspan="6">
                             <textarea name="applyReason" class="form-control" rows="10" style="margin-left: 80px" maxlength="200" oninput="autoCountWords(this)"></textarea>
-                            <div style="">
+                            <div style="position: relative;left: 1000px;bottom: 20px">
                                 <span class="num_count" style="color: red" id="numCount">0</span>
                                 <span class="num_limit" style="color: red">/200</span>
                             </div>
@@ -114,7 +114,7 @@
                     <tr class="up">
                         <td colspan="6">
                             <textarea name="rejectReason" class="form-control" rows="10" style="margin-left: 80px" maxlength="200" oninput="autoCountWords(this)"></textarea>
-                            <div style="">
+                            <div style="position: relative;left: 1000px;bottom: 20px">
                                 <span class="num_count" style="color: red" id="numCount">0</span>
                                 <span class="num_limit" style="color: red">/200</span>
                             </div>
@@ -122,15 +122,16 @@
                     </tr>
                     <tr style="padding-top: 100px">
                         <td colspan="6" class="text-right">
-                            <button class="btn btn-danger" type="submit" onclick="rejectApply()">驳回</button>
+                            <button class="btn btn-danger" type="button" onclick="rejectApply()">驳回</button>
                         </td>
                         <td colspan="6" class="text-right">
-                            <button class="btn btn-green" type="" onclick="">同意</button>
+                            <button class="btn btn-green" type="button" onclick="agreeApply()">同意</button>
                         </td>
                     </tr>
                     <input name="applyStatus" style="display: none" value="0">
                     </tbody>
                 </table>
+                <input type="hidden" name="id" value="${_result_.id}">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="uuid" value=""/>
             </form>
@@ -238,21 +239,50 @@
             async: false,
             data: $('#select_form').serialize(),
             success: function (data, textStatus) {
-                if($.trim(data)!="SUCCESS") {
-                    layer.alert("提交成功！", {icon: 6, closeBtn: 0}, function (index) {
-                        // layer.close(index);
+                if($.trim(data)=="SUCCESS") {
+                    layer.alert("驳回成功！", {icon: 6, closeBtn: 0}, function (index) {
+                        layer.close(index);
+                        location.href = "${rc.contextPath}/apply/index"
                     });
                 }
                 else
-                    layer.alert("提交失败，请重新申请！", {icon: 6, closeBtn: 0}, function (index) {
+                    layer.alert("操作失败，请重新申请！", {icon: 6, closeBtn: 0}, function (index) {
                         layer.close(index);
+                        location.reload()
                     });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 layer.alert('系统错误：' + errorThrown);
             }
         })
-        location.reload()
+        // location.reload()
+    }
+
+    function agreeApply(){
+        var url='${rc.contextPath}/apply/agreeApply'
+        $.ajax({
+            url: url,
+            type: 'POST',
+            async: false,
+            data: $('#select_form').serialize(),
+            success: function (data, textStatus) {
+                if($.trim(data)=="SUCCESS") {
+                    layer.alert("审核通过！", {icon: 6, closeBtn: 0}, function (index) {
+                        layer.close(index);
+                        location.href = "${rc.contextPath}/apply/index"
+                    });
+                }
+                else
+                    layer.alert("操作失败，请重新申请！", {icon: 6, closeBtn: 0}, function (index) {
+                        layer.close(index);
+                        location.reload()
+                    });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.alert('系统错误：' + errorThrown);
+            }
+        })
+        // location.reload()
     }
 
     function editReason(obj){
@@ -264,6 +294,7 @@
     function cancelReason(obj){
         $(".editReason").show()
         $("[name='rejectReason']").val("")
+        autoCountWords($("[name='rejectReason']")[0])
     }
 
 

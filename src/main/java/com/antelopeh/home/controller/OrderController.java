@@ -6,12 +6,10 @@ import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
 import com.antelopeh.home.common.Operator;
 import com.antelopeh.home.model.ApplyInfo;
+import com.antelopeh.home.model.Message;
 import com.antelopeh.home.model.OrderRoom;
 import com.antelopeh.home.model.Room;
-import com.antelopeh.home.service.ApplyInfoService;
-import com.antelopeh.home.service.BlockService;
-import com.antelopeh.home.service.OrderRoomService;
-import com.antelopeh.home.service.RoomService;
+import com.antelopeh.home.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +37,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private OrderRoomService orderRoomService;
@@ -150,6 +151,16 @@ public class OrderController extends BaseController {
         Operator operator = WebUtils.getOperator(request);
         applyInfo.setApplyPerson(operator.getCode());
         int result = applyInfoService.insert(applyInfo);
+        //发送审核结果消息
+        Message example = new Message();
+        example.setStatus(0);
+        example.setMessType(1);
+        example.setUserCode("admin");
+        example.setThirdId(applyInfo.getId().toString());
+        example.setMessTitle("申请使用教室，教室:"+applyInfo.getApplyBuild()+"-"+applyInfo.getApplyRoom()+"，课时:"+applyInfo.getApplyLesson());
+        example.setSendUserCode(operator.getName());
+        example.setSendTime(new Date());
+        messageService.insertSelective(example);
         if (result == 1)
             return "SUCCESS";
         else

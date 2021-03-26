@@ -24,4 +24,14 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements Teac
     public List<Teacher> selectAll() {
         return teacherMapper.selectAll();
     }
+
+    @Override
+    public int getCount() {
+        return teacherMapper.getCount();
+    }
+
+    @Override
+    public Integer getCountForSelect(Teacher stu) {
+        return null;
+    }
 }

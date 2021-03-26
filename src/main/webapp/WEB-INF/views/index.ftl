@@ -75,7 +75,7 @@ RVh0VGh1bWI6OkltYWdlOjpXaWR0aAAyNTZ6MhREAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1h
 Z2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE1OTYwOTUzMTaP7dXZAAAAEnRFWHRUaHVt
 Yjo6U2l6ZQA1MjMxQkIjDB3iAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFn
 ZWxjL2ltZ3ZpZXcyXzlfMTU5Mjg3NzU4MjAwNzY1MjFfODVfWzBdtrP2cQAAAABJRU5ErkJggg==" ></image></svg>
-        <h1 class="login-info">欢迎登录Sky</h1>
+        <h1 class="login-info">欢迎登录教室管理系统</h1>
         <div class="form-control">
             <label>
                 <input type="text" class="textfield" id="userCode" name="userCode" maxlength="32"/>
@@ -97,6 +97,10 @@ ZWxjL2ltZ3ZpZXcyXzlfMTU5Mjg3NzU4MjAwNzY1MjFfODVfWzBdtrP2cQAAAABJRU5ErkJggg==" ><
             <span></span>
             Login
         </a>
+            <#assign msg=Session["SPRING_SECURITY_LAST_EXCEPTION"].message>
+            <#if (msg??)>
+                <div id="msg" style="color:red;margin-top: 13px;font-size: 12px;text-align:center;">${msg}</div>
+            </#if>
         <br><br><br><br><br>
         <a href="#findPassword" class="link">Forgot your password?</a><a href="register.ftl" class="link" methods="post">&nbsp Or register Now</a>
 

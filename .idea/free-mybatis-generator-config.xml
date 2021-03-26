@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistentConfig">
+    <option name="historyConfigList">
+      <map>
+        <entry key="apply_info">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ApplyInfoMapper" />
+              <option name="daoPackage" value="com.antelopeh.home.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ApplyInfo" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="apply_info" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="apply_info" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mybatis" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="block">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="BlockMapper" />
+              <option name="daoPackage" value="com.antelopeh.home.mapper" />
+              <option name="daoPostfix" value="BlockMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="BlockModel" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="block" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="block" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mybatis" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="dept">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="DeptService" />
+              <option name="daoPackage" value="com.antelopeh.home.service" />
+              <option name="daoPostfix" value="Service" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Dept" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="dept" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="dept" />
+              <option name="xmlMvnPath" value="src/main/resources/mybatis" />
+              <option name="xmlPackage" value="Mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="message">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="MessageMapper" />
+              <option name="daoPackage" value="com.antelopeh.home.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Message" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="message" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="message" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mybatis" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="order_room">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="OrderRoomMapper" />
+              <option name="daoPackage" value="com.antelopeh.home.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="OrderRoom" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="order_room" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="order_room" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mybatis" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="room">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="RoomMapper" />
+              <option name="daoPackage" value="com.antelopeh.home.mapper" />
+              <option name="daoPostfix" value="RoomMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="RoomModel" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="room" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="room" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mybatis" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="student">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="StudentService" />
+              <option name="daoPackage" value="com.antelopeh.home.service" />
+              <option name="daoPostfix" value="Service" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Student" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="student" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="student" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="sys_parameters">
+          <value>
+            <Config>
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SysParametersService" />
+              <option name="daoPackage" value="com.antelopeh.home.service" />
+              <option name="daoPostfix" value="Service" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SysParameters" />
+              <option name="modelPackage" value="com.antelopeh.home.model" />
+              <option name="name" value="sys_parameters" />
+              <option name="primaryKey" value="param_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="sys_parameters" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="SysParametersMapper" />
+            </Config>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

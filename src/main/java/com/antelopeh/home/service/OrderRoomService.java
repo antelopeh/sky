@@ -10,4 +10,5 @@ public interface OrderRoomService extends BaseService<OrderRoom> {
     List<OrderRoom> selectBydate(String roomCode, String date);
     List<OrderRoom> selectByweek(String roomCode, String date);
     List<OrderRoom> selectResult(OrderRoom example);
+    int insert(OrderRoom example);
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TeacherMapper extends BaseMapper<Teacher> {
     List<Teacher> selectAll();
+    Integer getCount();
 }

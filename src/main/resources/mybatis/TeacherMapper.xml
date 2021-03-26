@@ -26,4 +26,9 @@
         FROM teacher t
         ORDER BY t.dept_code,t.code
     </select>
+
+    <select id="getCount" resultType="int">
+        SELECT COUNT(1)
+        FROM Teacher;
+    </select>
 </mapper>

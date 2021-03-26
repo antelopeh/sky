@@ -33,4 +33,14 @@ public class ApplyInfoServiceImpl extends BaseServiceImpl<ApplyInfo> implements 
     public ApplyInfo selectByPrimaryKey(Integer id) {
         return mapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int updateByPrimaryKey(ApplyInfo record) {
+        return mapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(ApplyInfo record) {
+        return mapper.updateByPrimaryKeySelective(record);
+    }
 }

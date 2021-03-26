@@ -100,7 +100,7 @@
                     <tr class="up">
                         <td colspan="6">
                             <textarea name="applyReason" class="form-control" rows="10" style="margin-left: 80px" maxlength="200" oninput="autoCountWords(this)"></textarea>
-                            <div style="">
+                            <div style="position: relative;left: 1000px;bottom: 20px">
                                 <span class="num_count" style="color: red" id="numCount">0</span>
                                 <span class="num_limit" style="color: red">/200</span>
                             </div>
@@ -108,7 +108,7 @@
                     </tr>
                     <tr>
                         <td colspan="6" class="text-right">
-                            <button class="btn btn-danger" type="submit" onclick="submitApply()">申请</button>
+                            <button class="btn btn-danger" type="button" onclick="submitApply()">申请</button>
                         </td>
                     </tr>
                     <input name="applyStatus" style="display: none" value="0">
@@ -196,20 +196,22 @@
             async: false,
             data: $('#select_form').serialize(),
             success: function (data, textStatus) {
-                if($.trim(data)!="SUCCESS") {
+                if($.trim(data)=="SUCCESS") {
                     layer.alert("提交成功！", {icon: 6, closeBtn: 0}, function (index) {
-                        // layer.close(index);
+                        layer.close(index);
+                        location.href = "${rc.contextPath}/order/index"
                     });
                 }
                 else
                     layer.alert("提交失败，请重新申请！", {icon: 6, closeBtn: 0}, function (index) {
                         layer.close(index);
+                        location.reload()
                     });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 layer.alert('系统错误：' + errorThrown);
             }
         })
-        location.reload()
+        // location.reload()
     }
 </script>

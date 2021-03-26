@@ -138,7 +138,7 @@
 
 
     <#list _result_ as item>
-        $('tbody').find('tr').eq(${item.timeStart-1}).find('td').eq(${item.weekTime}).html('${item.remark?substring(5)}');
+        $('tbody').find('tr').eq(${item.timeStart-1}).find('td').eq(${item.weekTime}).html('${item.remark?split(':')[1]}');
         if (${item.timeStart} != ${item.timeEnd})
         {
             if (${item.timeEnd} - ${item.timeStart} > 1){//遍历超过两个的单元格

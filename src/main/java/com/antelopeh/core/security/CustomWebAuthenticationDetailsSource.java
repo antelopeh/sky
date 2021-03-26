@@ -54,6 +54,8 @@ public class CustomWebAuthenticationDetailsSource implements AuthenticationDetai
         if (result.size() > 0){
             context.getSession().setAttribute("userCode",username);
             context.getSession().setAttribute("userPwd",password);
+        }else {
+            throw new AuthenticationServiceException("账号或密码不正确，请检查！");
         }
         return null;
     }

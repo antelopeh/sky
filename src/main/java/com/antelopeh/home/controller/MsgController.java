@@ -3,6 +3,7 @@ package com.antelopeh.home.controller;
 import com.antelopeh.core.util.ObjectUtils;
 import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
+import com.antelopeh.home.common.Operator;
 import com.antelopeh.home.model.*;
 import com.antelopeh.home.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class MsgController{
     public ModelAndView teacher(HttpServletRequest request, HttpServletResponse response, Model model){
         model.addAttribute("menuMap", WebUtils.getMenuMap(request));
         model.addAttribute(Constants.SELECT_RESULT,teacherService.selectAll());
+        model.addAttribute(Constants.SELECT_COUNTS,teacherService.getCount());
+        model.addAttribute(Constants.SELECT_PAGE,"1");
         return new ModelAndView("msg/teacher/selectMsg");
     }
     @RequestMapping("/student")
@@ -77,10 +80,11 @@ public class MsgController{
     @RequestMapping("/createOne")
     @ResponseBody
     public Object createOne(HttpServletRequest request, HttpServletResponse response, Model model, User record){
-        if (ObjectUtils.isObjectFieldEmpty(record))
+        Operator operator = WebUtils.getOperator(request);
+        if (operator.getRoleMap().containsKey("0") && ObjectUtils.isObjectFieldEmpty(record))
             return new ModelAndView("msg/createOne");
         else
-            return null;
+            return new ModelAndView("./layout/error/403");
     }
 
     @RequestMapping("/insertOne")

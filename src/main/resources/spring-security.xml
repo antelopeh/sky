@@ -8,7 +8,7 @@
         <security:intercept-url pattern="/index.html" access="permitAll" />
         <security:intercept-url pattern="/*" access="permitAll" />
         <security:intercept-url pattern="/**" access="permitAll" />
-        <security:form-login login-page="/" login-processing-url="/process" default-target-url="/login" username-parameter="userCode" password-parameter="userPwd" authentication-failure-url="/403" always-use-default-target="true" authentication-details-source-ref="customWebAuthenticationDetailsSource"/>
+        <security:form-login login-page="/" login-processing-url="/process" default-target-url="/login" username-parameter="userCode" password-parameter="userPwd" authentication-failure-url="/" always-use-default-target="false" authentication-details-source-ref="customWebAuthenticationDetailsSource"/>
         <security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID" />
         <security:csrf disabled="false" /><!-- 关闭跨域请求限制 -->
         <security:access-denied-handler ref="customAccessDeniedHandler" />

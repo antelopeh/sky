@@ -80,6 +80,9 @@ dependencies {
         exclude group: "log4j", module: "log4j"
     }
 
+//    implementation 'io.github.wnjustdoit:pinyin4j:2.6.0'
+//    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.75'
+
     implementation(
             "redis.clients:jedis",
              "mysql:mysql-connector-java",

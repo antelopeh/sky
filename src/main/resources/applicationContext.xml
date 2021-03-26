@@ -14,6 +14,7 @@
                 http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <context:component-scan base-package="com.antelopeh.home.service"/>
+    <context:component-scan base-package="com.antelopeh.home.controller"/>
     <context:component-scan base-package="com.antelopeh.core"/>
 
     <!-- AOP -->
@@ -23,7 +24,7 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
     <!-- 2. 配置事务属性 -->
-    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+    <tx:advice id="transactionAdvice" transaction-manager="jtaTransactionManager">
         <tx:attributes>
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
             <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
@@ -98,5 +99,6 @@
         <property name="allowCustomIsolationLevels" value="true" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="jtaTransactionManager" />
+    <tx:annotation-driven transaction-manager="jtaTransactionManager" proxy-target-class="true"/>
+
 </beans>

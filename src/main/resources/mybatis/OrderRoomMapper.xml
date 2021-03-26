@@ -105,6 +105,12 @@
     <include refid="addition"></include>
     ORDER BY time_start
   </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.antelopeh.home.model.ApplyInfo" useGeneratedKeys="true">
+    INSERT INTO order_room
+    (<include refid="Base_Column_List"></include>)
+    values (#{id,jdbcType=INTEGER},#{roomCode,jdbcType=VARCHAR},#{user,jdbcType=VARCHAR},#{dateTime,jdbcType=DATE},#{timeStart,jdbcType=INTEGER},
+            #{timeEnd,jdbcType=INTEGER},#{isForLesson,jdbcType=INTEGER},#{isForOrganization,jdbcType=INTEGER},#{lessonCode,jdbcType=VARCHAR},#{organizationCode,jdbcType=VARCHAR},#{operator,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{weekTime,jdbcType=INTEGER})
+  </insert>
 
 <!--  <if test="roomCode != null">-->
 <!--    room_code = #{roomCode,jdbcType=VARCHAR},-->
