@@ -18,4 +18,8 @@
     </if>;
   </select>
 
+  <insert id="insert" parameterType="com.antelopeh.home.model.UserRole">
+    insert into user_role (user_code,role_code) values(#{userCode},#{roleCode})
+  </insert>
+
 </mapper>

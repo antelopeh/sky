@@ -9,7 +9,7 @@
 <#assign operator=Session["_SESSION_OPERATOR_"]>
 <#include "layout/top.ftl">
 
-<#include "order/schedule_line.ftl">
+<#include "order/room_detail_content.ftl">
 <input type="hidden" id="hiddenList" value="/order/orderLine"/>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </body>

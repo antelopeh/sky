@@ -34,7 +34,11 @@
                 <td style="vertical-align: middle;">${item.haveCurtain}</td>
                 <td style="vertical-align: middle;">${item.haveProjector}</td>
                 <td style="vertical-align: middle;">${item.haveMicrophone}</td>
-                <td style="vertical-align: middle"><a onclick="openDetails('${item.blockCode}','${item.roomCode}');" style="cursor:pointer;">查看使用详情</a></td>
+                <td style="vertical-align: middle">
+                    <a onclick="repairRoom('${item.blockCode}','${item.roomCode}')" style="margin-right: 10px;cursor: pointer">报修</a>
+                    <a onclick="openDetail('${item.id}')" style="margin-right: 10px;cursor: pointer">详情</a>
+                    <a onclick="openDetails('${item.blockCode}','${item.roomCode}');" style="cursor:pointer;">查看周课表</a>
+                </td>
             </tr>
         </#list>
         </tbody>
@@ -61,5 +65,15 @@
                 layer.alert('系统错误：' + errorThrown);
             }
         })
+    }
+
+    function repairRoom(blockCode,roomCode) {
+        var url='${rc.contextPath}/order/repairRoom?roomCode='+blockCode+'-'+roomCode;
+        window.location.href = url ;
+    }
+
+    function openDetail(id){
+        var url='${rc.contextPath}/order/roomDetail?id=' + id;
+        window.location.href = url ;
     }
 </script>

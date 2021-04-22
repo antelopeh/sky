@@ -28,13 +28,41 @@
                 <td style="vertical-align: middle;">${item.sendTime?string("MM-dd")}</td>
                 <#if messType == 0>
                     <td style="vertical-align: middle;">公告</td>
-                <#else>
+                    <#if item.status == 0>
+                        <td style="vertical-align: middle"><a onclick="" style="cursor:pointer;">未读</a></td>
+                    <#else>
+                        <td style="vertical-align: middle"><a onclick="" style="cursor:pointer;">已读</a></td>
+                    </#if>
+                <#elseif messType == 1>
                     <td style="vertical-align: middle;">审核</td>
-                </#if>
-                <#if item.status == 0>
-                    <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}','${item.id}');" style="cursor:pointer;">未读</a></td>
+                    <#if operator.code == "admin">
+                        <#if item.status == 0>
+                            <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}','${item.id}');" style="cursor:pointer;">未读</a></td>
+                        <#else>
+                            <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}');" style="cursor:pointer;">已读</a></td>
+                        </#if>
+                    <#else>
+                        <#if item.status == 0>
+                            <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}','${item.id}');" style="cursor:pointer;">待处理</a></td>
+                        <#else>
+                            <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}');" style="cursor:pointer;">已处理</a></td>
+                        </#if>
+                    </#if>
                 <#else>
-                    <td style="vertical-align: middle"><a onclick="openDetails('${item.thirdId}');" style="cursor:pointer;">已读</a></td>
+                    <td style="vertical-align: middle;">维修</td>
+                    <#if operator.code == "admin">
+                        <#if item.status == 0>
+                            <td style="vertical-align: middle"><a onclick="openRepair('${item.thirdId}','${item.id}');" style="cursor:pointer;">未读</a></td>
+                        <#else>
+                            <td style="vertical-align: middle"><a onclick="openRepair('${item.thirdId}');" style="cursor:pointer;">已读</a></td>
+                        </#if>
+                    <#else>
+                        <#if item.status == 0>
+                            <td style="vertical-align: middle"><a onclick="openRepair('${item.thirdId}','${item.id}');" style="cursor:pointer;">待查看</a></td>
+                        <#else>
+                            <td style="vertical-align: middle"><a onclick="openRepair('${item.thirdId}');" style="cursor:pointer;">已查看</a></td>
+                        </#if>
+                    </#if>
                 </#if>
             </tr>
         </#list>
@@ -46,8 +74,16 @@
 </div>
 <script>
     function openDetails(thirdId, id) {
-        $.post('${rc.contextPath}/message/readMsg?id='+id);
+        if (id)
+            $.post('${rc.contextPath}/message/readMsg?id='+id);
         var url='${rc.contextPath}/apply/applyDetails?id='+thirdId;
+        window.location.href = url;
+    }
+
+    function openRepair(thirdId, id){
+        if (id)
+            $.post('${rc.contextPath}/message/readMsg?id='+id);
+        var url='${rc.contextPath}/order/repairMsg?id='+thirdId;
         window.location.href = url;
     }
 </script>

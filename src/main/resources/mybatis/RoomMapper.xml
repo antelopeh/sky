@@ -10,15 +10,47 @@
     <result column="have_projector" jdbcType="VARCHAR" property="haveProjector"/>
     <result column="have_microphone" jdbcType="VARCHAR" property="haveMicrophone"/>
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    room_code,block_code,floor,
+    id,room_code,block_code,floor,
     (CASE have_curtain WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END) as have_curtain,
     (CASE have_projector WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END) as have_projector,
-    (CASE have_microphone  WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END)as have_microphone,`status`
+    (CASE have_microphone  WHEN '1' THEN '有' WHEN '0' THEN '无' ELSE '待维修' END)as have_microphone,`status`,remark
   </sql>
 
+  <select id="select" resultMap="BaseResultMap">
+    select * from room
+    <where>
+      <trim>
+        <if test="id != null and id !=''">
+          and id = #{id}
+        </if>
+        <if test="blockCode != null and blockCode !=''">
+          and block_code = #{blockCode}
+        </if>
+        <if test="floor != null and floor !=''">
+          and floor = #{floor}
+        </if>
+        <if test="roomCode != null and roomCode != ''">
+          and room_code like concat(#{roomCode},'%')
+        </if>
+        <if test="haveCurtain != null and haveCurtain !=''">
+          and have_curtain = #{haveCurtain}
+        </if>
+        <if test="haveProjector != null and haveProjector !=''">
+          and have_projector = #{haveProjector}
+        </if>
+        <if test="haveMicrophone != null and haveMicrophone !=''">
+          and have_microphone = #{haveMicrophone}
+        </if>
+        <if test="status != null and status !=''">
+          and status = #{status}
+        </if>
+      </trim>
+    </where>
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"></include>
@@ -104,4 +136,42 @@
       limit #{start_row},#{pagr_row};
     </if>
   </select>
+
+  <update id="update" parameterType="com.antelopeh.home.model.Room">
+    update room
+    <set >
+    <if test="record.id != null" >
+      id = #{record.id,jdbcType=INTEGER},
+    </if>
+    <if test="record.roomCode != null" >
+      room_code = #{record.roomCode,jdbcType=VARCHAR},
+    </if>
+    <if test="record.blockCode != null" >
+      block_code = #{record.blockCode,jdbcType=VARCHAR},
+    </if>
+    <if test="record.floor != null" >
+      floor = #{record.floor,jdbcType=VARCHAR},
+    </if>
+    <if test="record.haveCurtain != null" >
+      have_curtain = #{record.haveCurtain,jdbcType=VARCHAR},
+    </if>
+    <if test="record.haveProjector != null" >
+      have_projector = #{record.haveProjector,jdbcType=VARCHAR},
+    </if>
+    <if test="record.haveMicrophone != null" >
+      have_microphone = #{record.haveMicrophone,jdbcType=VARCHAR},
+    </if>
+    <if test="record.status != null" >
+      status = #{record.status,jdbcType=VARCHAR},
+    </if>
+    <if test="record.remark != null" >
+      remark = #{record.remark,jdbcType=VARCHAR},
+    </if>
+    </set>
+    <where>
+      <if test="example.id != null">
+        id = #{example.id,jdbcType=INTEGER}
+      </if>
+    </where>
+  </update>
 </mapper>

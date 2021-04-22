@@ -20,15 +20,46 @@
         t.id , t.code , t.name , t.sex , t.identity_code , (select dept_name from dept d where d.dept_code = t.dept_code) as dept_name , t.nation , t.politics , t.birth_time , t.address , t.user_code , t.status
     </sql>
 
+    <sql id="where_base_sql">
+        <where>
+            <trim>
+                <if test="id != null and id != ''">
+                    and t.id = #{id}
+                </if>
+                <if test="code != null and code != ''">
+                    and t.code = #{code}
+                </if>
+                <if test="deptName != null and deptName != ''">
+                    and t.dept_Code like CONCAT(#{deptName},'-%')
+                </if>
+                <if test="name != null and name != ''">
+                    and t.name like CONCAT('%',#{name},'%')
+                </if>
+                <if test="sex != null and sex != ''">
+                    and t.sex like CONCAT('%',#{sex},'%')
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="com.antelopeh.home.model.Teacher">
+        SELECT
+        <include refid="Base_sql"/>
+        FROM teacher t
+        <include refid="where_base_sql"></include>
+        ORDER BY t.dept_code,t.code
+    </select>
+
+    <select id="count" resultType="int" parameterType="com.antelopeh.home.model.Teacher">
+        SELECT COUNT(1)
+        FROM teacher t
+        <include refid="where_base_sql"></include>
+    </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_sql"/>
         FROM teacher t
         ORDER BY t.dept_code,t.code
-    </select>
-
-    <select id="getCount" resultType="int">
-        SELECT COUNT(1)
-        FROM Teacher;
     </select>
 </mapper>

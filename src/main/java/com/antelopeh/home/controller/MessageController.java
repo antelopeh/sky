@@ -25,15 +25,16 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping("index")
+    @ResponseBody
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, Model model) {
         Operator operator = WebUtils.getOperator(request);
         Message message = new Message();
         message.setUserCode(operator.getCode());
-        model.addAttribute(Constants.SELECT_COUNTS,messageService.countByExample(message));
         model.addAttribute(Constants.SELECT_PAGE,"1");
         Message example = new Message();
         example.setSendUserCode(operator.getCode());
         List<Message> result = messageService.selectByExample(example);
+        model.addAttribute(Constants.SELECT_COUNTS,messageService.countByExample(message));
         model.addAttribute(Constants.SELECT_RESULT,result);
         model.addAttribute("menuMap", WebUtils.getMenuMap(request));
         return new ModelAndView("message/messageInfo");
@@ -41,10 +42,13 @@ public class MessageController {
 
     @RequestMapping("/messageList")
     @ResponseBody
-    public ModelAndView getmessageList(HttpServletResponse response, HttpServletRequest request, Model model) {
+    public ModelAndView getmessageList(HttpServletResponse response, HttpServletRequest request, Model model, Message message) {
         Operator operator = WebUtils.getOperator(request);
-        Message message = new Message();
-        message.setUserCode(operator.getCode());
+        if (!operator.getCode().equals("admin"))
+            message.setSendUserCode(operator.getCode());
+        else
+            message.setUserCode(operator.getCode());
+        model.addAttribute(Constants.SELECT_COUNTS,messageService.countByExample(message));
         model.addAttribute(Constants.SELECT_RESULT,messageService.selectByExample(message));
         return new ModelAndView("message/messageList");
     }

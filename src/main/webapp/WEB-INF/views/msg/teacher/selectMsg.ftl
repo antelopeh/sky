@@ -7,7 +7,8 @@
 
 <body class="hold-transition skin-blue sidebar-mini" style="padding:10px 15px 0px 15px;background: black">
 <#assign operator=Session["_SESSION_OPERATOR_"]>
-    <#include "layout/top.ftl">
+<#include "layout/top.ftl">
+<#include "msg/teacher/search.ftl">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </body>
 <#include "layout/footer.ftl">

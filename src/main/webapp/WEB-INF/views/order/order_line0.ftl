@@ -8,7 +8,7 @@
     <span class="title-need" style="color:#dd4b39;font-size:16px;font-weight:bold;"></span>
 </h1>
 <div class="query-result">
-    <table class="table table-bordered table-striped table-hover result-table text-center" role="grid" style="margin-bottom:10px;">
+    <table id="tab" class="table table-bordered table-striped table-hover result-table text-center" role="grid" style="margin-bottom:10px;">
         <colgroup>
             <col width="12.5%">
             <col width="12.5%">
@@ -80,8 +80,17 @@
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="hint">
+
+                        </td>
+                        <td>
+                            <button class="btn btn-green" type="button" onclick="return applyLesson()">申请</button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
+                <input type="hidden" name="result" value="">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="uuid" value=""/>
             </form>
@@ -156,15 +165,86 @@
         }
     </#list>
 
+    var key = 0;
+    var arrPos = new Array();
+    $(document).ready(function(){
+        $("#tab").mousemove(function(e){
+            var x = e.clientX, y = e.clientY;
+            if (arrPos.length > 0) {
+                if ( 1==key && e.target.tagName =="TD")
+                {
+                    $(e.target).css("background","grey").addClass("selected");
+                }
+            }
+        });
+        $("#tab").mousedown(function(e){
+            $("td.selected").each(function (){
+                $(this).css("background","").removeClass("selected");
+            })
+            var x = e.clientX, y = e.clientY;
+            arrPos.push(Array(x,y));
+            $("[name='result']").html("X:"+x+";Y:"+y)
+            key=1;
+        });
+        $("#tab").mouseup(function(e){
+            arrPos=new Array();
+            key=0;
+        });
+    })
+
+
+    $("table").bind('selectstart', function(ev) {
+        switch (ev.target.cellIndex) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                return false;
+            default:
+                return true;
+        }
+    })
+
+    // $("table").bind('selectstart', function(ev) {
+    //     switch (ev.target.parentElement.rowIndex){
+    //         case 0:
+    //             return false;
+    //         default:
+    //             switch (ev.target.cellIndex){
+    //                 case 0:
+    //                     return false;
+    //                 default:
+    //                     return true;
+    //             }
+    //     }
+    // })
+
     for (var i = 0; i < 12; i++){
         for (var j = 1; j <= 7; j++){
             if ($('tbody tr').eq(i).find('td').eq(j).html() === '') {
                 $('tbody tr').eq(i).find('td').eq(j).addClass('applyOne');
-                $('tbody tr').eq(i).find('td').eq(j).click(function(){
-                    var url='${rc.contextPath}/order/orderRoom?baseDate=${_example_.dateTime?string ["YYYY-MM-dd"]}&weekTime=' + $(this).parent().find('td').index(this)+'&roomCode=${_example_.roomCode}&startTime=' + $(this).parent().parent().find('tr').index($(this).parent());
-                    window.location.href = url;
-                })
+                <#--$('tbody tr').eq(i).find('td').eq(j).click(function(){-->
+                <#--    var url='${rc.contextPath}/order/orderRoom?baseDate=${_example_.dateTime?string ["YYYY-MM-dd"]}&weekTime=' + $(this).parent().find('td').index(this)+'&roomCode=${_example_.roomCode}&startTime=' + $(this).parent().parent().find('tr').index($(this).parent());-->
+                <#--    window.location.href = url;-->
+                <#--})-->
             }
+        }
+    }
+
+    function applyLesson(){
+        var length = $("td.selected").length
+        if (length) {
+            var url = '${rc.contextPath}/order/orderRoom?baseDate=${_example_.dateTime?string ["YYYY-MM-dd"]}&weekTime=' + $("td.selected:eq(0)").parent().find('td').index($("td.selected:eq(0)")[0]) + '&roomCode=${_example_.roomCode}&startTime=' + $("td.selected:eq(0)").parent().parent().find('tr').index($("td.selected:eq(0)").parent())  + '&endTime=' + $("td.selected").eq(length-1).parent().parent().find('tr').index($("td.selected").eq(length-1).parent());
+            window.location.href = url;
+        }else {
+            layer.alert("未选课程",{icon: 6, closeBtn: 0},function (index){
+                layer.close(index);
+            })
+            return false
         }
     }
 </script>

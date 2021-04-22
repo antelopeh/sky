@@ -1,5 +1,6 @@
 package com.antelopeh.home.controller;
 
+import com.antelopeh.core.util.DecriptUtils;
 import com.antelopeh.core.util.ObjectUtils;
 import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
@@ -36,14 +37,35 @@ public class MsgController{
     @Autowired
     private SysParametersService sysParametersService;
 
+    @Autowired
+    private UserRoleService userRoleService;
+
     @RequestMapping("/teacher")
     public ModelAndView teacher(HttpServletRequest request, HttpServletResponse response, Model model){
+        List<Dept> deptList = deptService.selectDept();
         model.addAttribute("menuMap", WebUtils.getMenuMap(request));
         model.addAttribute(Constants.SELECT_RESULT,teacherService.selectAll());
-        model.addAttribute(Constants.SELECT_COUNTS,teacherService.getCount());
+        model.addAttribute(Constants.SELECT_COUNTS,teacherService.count(new Teacher()));
         model.addAttribute(Constants.SELECT_PAGE,"1");
+        model.addAttribute("deptList",deptList);
         return new ModelAndView("msg/teacher/selectMsg");
     }
+
+    @RequestMapping("/teacherList")
+    @ResponseBody
+    public ModelAndView teacherList(HttpServletRequest request, HttpServletResponse response, Model model, Teacher example){
+        if(ObjectUtils.isObjectFieldEmpty(example)) {
+            model.addAttribute(Constants.SELECT_COUNTS,teacherService.count(new Teacher()));
+            model.addAttribute(Constants.SELECT_RESULT, teacherService.selectAll());
+        }
+        else {
+            model.addAttribute(Constants.SELECT_COUNTS,teacherService.count(example));
+            model.addAttribute(Constants.SELECT_RESULT, teacherService.select(example));
+        }
+        model.addAttribute("example",example);
+        return new ModelAndView("msg/teacher/teacher_list");
+    }
+
     @RequestMapping("/student")
     public  ModelAndView student(HttpServletRequest request, Model model, StuSearch stu){
         List<Dept> deptList = deptService.selectDept();
@@ -55,6 +77,7 @@ public class MsgController{
         model.addAttribute("menuMap", WebUtils.getMenuMap(request));
         return new ModelAndView("msg/student/selectMsg");
     }
+
     @RequestMapping("stuList")
     @ResponseBody
     public ModelAndView stuList(HttpServletRequest request, HttpServletResponse response, Model model, StuSearch stu){
@@ -91,8 +114,13 @@ public class MsgController{
     @ResponseBody
     public String insertOne(HttpServletRequest request, HttpServletResponse response, Model model, User record){
         if (!ObjectUtils.isObjectFieldEmpty(record)){
+            record.setUserPwd(DecriptUtils.encodeMD5(record.getUserPwd()));
             userService.insert(record);
+            UserRole ur = new UserRole();
+            ur.setUserCode(record.getUserCode());
+            ur.setRoleCode("9999");
+            userRoleService.insert(ur);
         }
-        return null;
+        return "SUCCESS";
     }
 }

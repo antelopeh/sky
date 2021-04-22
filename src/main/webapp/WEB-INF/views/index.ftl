@@ -76,7 +76,7 @@ Z2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE1OTYwOTUzMTaP7dXZAAAAEnRFWHRUaHVt
 Yjo6U2l6ZQA1MjMxQkIjDB3iAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFn
 ZWxjL2ltZ3ZpZXcyXzlfMTU5Mjg3NzU4MjAwNzY1MjFfODVfWzBdtrP2cQAAAABJRU5ErkJggg==" ></image></svg>
         <h1 class="login-info">欢迎登录教室管理系统</h1>
-        <div class="form-control">
+        <div class="form-control" style="margin-top: 40px">
             <label>
                 <input type="text" class="textfield" id="userCode" name="userCode" maxlength="32"/>
                 <span class="userCodelabel">Email</span>

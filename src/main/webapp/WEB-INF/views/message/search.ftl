@@ -10,23 +10,23 @@
                 <table class="query-table" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tbody>
                     <tr class="hint">
-                        <td class="hint">
-                            接收时间：
-                        </td>
-                        <td>
-                            <input id="sendTime" name="sendTime" type="date" value="" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>
-                        </td>
+<#--                        <td class="hint">-->
+<#--                            接收时间：-->
+<#--                        </td>-->
+<#--                        <td>-->
+<#--                            <input id="sendTime" name="sendTime" type="date" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>-->
+<#--                        </td>-->
                         <td class="hint">
                             消息内容：
                         </td>
                         <td>
-                            <input id="messContent" name="messContent" type="text" value="" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>
+                            <input id="messContent" name="messTitle" type="text" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>
                         </td>
                         <td class="hint">
                             发送人：
                         </td>
                         <td>
-                            <input id="messContent" name="messContent" type="text" value="" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>
+                            <input id="sendUserCode" name="sendUserCode" type="text" style="width: 200px;height: 28px;font-size: 18px;color: black;margin:20px 0px 20px 10px"/>
                         </td>
                     </tr>
                     </tbody>

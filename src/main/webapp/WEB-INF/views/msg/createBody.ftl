@@ -20,9 +20,8 @@
                             <td class="hint">用户姓名：</td>
                             <td><input type="text" class="form-control isChinese" name="userName" id="userName"
                                        placeholder=""></td>
-                            <td class="hint">用户身份：</td>
-                            <td><input type="text" class="form-control" name="userRole" id="userRole" placeholder="">
-                            </td>
+                            <td class="hint"></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="hint">用户账号：</td>
@@ -42,7 +41,7 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="text-right">
-                                <button class="btn btn-danger" type="submit" onclick="createOne()">新增</button>
+                                <button class="btn btn-danger" type="button" onclick="return insertOne()">新增</button>
                             </td>
                         </tr>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -94,6 +93,45 @@
             }
         });
     });
+
+    function insertOne(){
+        var msg = ""
+        if(!$("[name='userEmail']").val())
+            msg = "用户邮箱不得为空"
+        if(!$("[name='userTel']").val())
+            msg = "用户手机不得为空"
+        if(!$("[name='userPwd']").val())
+            msg = "用户密码不得为空"
+        if(!$("[name='userCode']").val())
+            msg = "用户账号不得为空"
+        if(!$("[name='userName']").val())
+            msg = "用户名不得为空"
+        if (msg){
+            layer.alert(msg, {icon: 6, closeBtn: 0}, function (index) {
+                layer.close(index);
+            });
+            return false
+        }
+
+        $.ajax({
+            url: $("#context_path").val() + "/msg/insertOne",
+            data: $("#select_form").serialize(),
+            type: "POST",
+            async: false,
+            success: function (data, textStatus) {
+                if ($.trim(data) == "SUCCESS") {
+                    layer.alert(msg, {icon: 6, closeBtn: 0}, function (index) {
+                        layer.close(index);
+                        location.href = "${rc.contextPath}/msg/createOne"
+                    });
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.alert('系统错误：' + errorThrown);
+            }
+        });
+
+    }
 
 
 </script>

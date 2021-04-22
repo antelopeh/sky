@@ -291,7 +291,7 @@ img#code2D{width:200px;height:200px;}
     transition:background-image 2.5s;
 }
 .applyOne:hover{
-    background-image: url('../img/222.png');
+    /*background-image: url('../img/222.png');*/
     background-size: 100% 100%;
 }
 

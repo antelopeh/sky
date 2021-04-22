@@ -74,7 +74,7 @@
                         <td colspan="3">
                             <select style="width: 500px" class="form-control selectpicker" id="lesson" name="applyLesson" multiple>
                                 <#list 1..12 as i>
-                                    <option value="${i}">第${i}课时</option>
+                                        <option value="${i}">第${i}课时</option>
                                 </#list>
                             </select>
                         </td>
@@ -126,6 +126,13 @@
 
 <script>
     $(document).ready(function () {
+        //更改多选框的默认值
+        $("[name='applyLesson']").find("option").each(function (){
+            if (this.index >= ${startTime} && this.index <= ${endTime}){
+                this.selected = true;
+            }
+        })
+
         $("#lesson").selectpicker({width: "515px"});//单独设置bootstrap中select的宽度，使其不因选中项宽度过大而被强行撑开
         //更改第一个下选框的选项
         var html = "<option value=''>--请选择--</option>";

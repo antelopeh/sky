@@ -5,10 +5,7 @@ import com.antelopeh.core.util.ObjectUtils;
 import com.antelopeh.core.util.WebUtils;
 import com.antelopeh.home.common.Constants;
 import com.antelopeh.home.common.Operator;
-import com.antelopeh.home.model.ApplyInfo;
-import com.antelopeh.home.model.Message;
-import com.antelopeh.home.model.OrderRoom;
-import com.antelopeh.home.model.Room;
+import com.antelopeh.home.model.*;
 import com.antelopeh.home.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
@@ -46,6 +48,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private ApplyInfoService applyInfoService;
+
+    @Autowired
+    private RepairService repairService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, Model model){
@@ -72,8 +77,15 @@ public class OrderController extends BaseController {
     @RequestMapping("roomDetail")
     public ModelAndView roomDetail(HttpServletRequest request, HttpServletResponse response, Model model , Room room){
         model.addAttribute(Constants._MENU_MAP_, WebUtils.getMenuMap(request));
-        model.addAttribute(Constants.SELECT_RESULT,orderRoomService.selectByCode(room.getBlockCode(),room.getRoomCode()));
+        model.addAttribute(Constants.SELECT_RESULT,roomService.select(room).get(0));
         return new ModelAndView("order/room_Details");
+    }
+
+    @RequestMapping("updateRoom")
+    @ResponseBody
+    public String updateRoom(HttpServletRequest request, HttpServletResponse response, Room room){
+        roomService.update(room,room);
+        return "SUCCESS";
     }
 
     @RequestMapping("orderLine")
@@ -114,7 +126,7 @@ public class OrderController extends BaseController {
     }
 
     @RequestMapping("orderRoom")
-    public ModelAndView orderRoom(HttpServletRequest request, HttpServletResponse response,Model model, String baseDate, String roomCode) throws ParseException {
+    public ModelAndView orderRoom(HttpServletRequest request, HttpServletResponse response,Model model, String baseDate, String roomCode, int startTime, int endTime) throws ParseException {
         String weekTime = WebUtils.getParameter(request, "weekTime");
         model.addAttribute(Constants._MENU_MAP_, WebUtils.getMenuMap(request));
         model.addAttribute("block", blockService.selectAll());
@@ -137,6 +149,8 @@ public class OrderController extends BaseController {
         example.setRoomCode(roomCode);
 //        example.setTimeStart(startTime + 1);
         example.setDateTime(date);
+        model.addAttribute("startTime",startTime);
+        model.addAttribute("endTime", endTime);
         model.addAttribute(Constants.EXAMPLE, example);
         model.addAttribute(Constants.SELECT_RESULT, orderRoomService.selectResult(example));
 
@@ -152,19 +166,75 @@ public class OrderController extends BaseController {
         applyInfo.setApplyPerson(operator.getCode());
         int result = applyInfoService.insert(applyInfo);
         //发送审核结果消息
-        Message example = new Message();
-        example.setStatus(0);
-        example.setMessType(1);
-        example.setUserCode("admin");
-        example.setThirdId(applyInfo.getId().toString());
-        example.setMessTitle("申请使用教室，教室:"+applyInfo.getApplyBuild()+"-"+applyInfo.getApplyRoom()+"，课时:"+applyInfo.getApplyLesson());
-        example.setSendUserCode(operator.getName());
-        example.setSendTime(new Date());
-        messageService.insertSelective(example);
+        messageService.sendExamine(applyInfo,operator.getCode());
         if (result == 1)
             return "SUCCESS";
         else
             return "FAILED";
+    }
+
+    @RequestMapping("repairMsg")
+    public ModelAndView repairMsg(HttpServletRequest request, HttpServletResponse response, Model model, Integer id){
+        if (id!=null){
+            Repair result = repairService.selectByPrimaryKey(id);
+            model.addAttribute(Constants.SELECT_RESULT,result);
+        }
+        model.addAttribute("block", blockService.selectAll());
+        return new ModelAndView("order/repairRoomDetail");
+    }
+
+    @RequestMapping("repairRoom")
+    public ModelAndView repairRoom(HttpServletRequest request, HttpServletResponse response, Model model, String roomCode){
+        if (StringUtils.isNotEmpty(roomCode))
+            model.addAttribute("roomCode",roomCode);
+        model.addAttribute("block", blockService.selectAll());
+        return new ModelAndView("order/repairRoom");
+    }
+
+    @RequestMapping("submitRepair")
+    @ResponseBody
+    public String submitRepair(HttpServletRequest request,MultipartFile file, Model model, Repair repair) throws IOException {
+        String path = request.getSession().getServletContext().getRealPath("/resources/img/");
+        Operator operator = WebUtils.getOperator(request);
+        if (!file.isEmpty()){
+            file.transferTo(new File(path + file.getOriginalFilename()));
+            path += file.getOriginalFilename();
+        }
+        repair.setRepairImg(file.getOriginalFilename());
+        repair.setRepairStatus("0");
+        repairService.insert(repair);
+        messageService.sendRepair(repair, operator.getCode());
+        return Constants.SUCCESS;
+    }
+
+    @RequestMapping("applyRepair")
+    @ResponseBody
+    public String applyRepair(HttpServletRequest request, HttpServletResponse response, Repair repair){
+        Room example = new Room();
+        example.setBlockCode(repair.getRoomCode().split("-")[0]);
+        example.setRoomCode(repair.getRoomCode().split("-")[1]);
+        Room room = roomService.select(example).get(0);
+        switch (repair.getRepairObj()){
+            case "1":
+                room.setHaveMicrophone("9");
+                room.setRemark("话筒：" + repair.getRepairMess());
+                break;
+            case "2" :
+                room.setHaveProjector("9");
+                room.setRemark("投影仪：" + repair.getRepairMess());
+                break;
+            case "3" :
+                room.setHaveCurtain("9");
+                room.setRemark("幕布：" + repair.getRepairMess());
+                break;
+            case "4" :
+                room.setRemark("其他：" + repair.getRepairMess());
+                break;
+        }
+        roomService.update(room,room);
+        repair.setRepairStatus("1");
+        repairService.updateByPrimaryKeySelective(repair);
+        return Constants.SUCCESS;
     }
 
     /*

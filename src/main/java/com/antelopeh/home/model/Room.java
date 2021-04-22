@@ -24,5 +24,7 @@ public class Room extends BaseModel {
 
     private String status;
 
+    private String remark;
+
     private static final long serialVersionUID = 1L;
 }
