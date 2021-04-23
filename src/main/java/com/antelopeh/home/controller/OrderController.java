@@ -9,8 +9,10 @@ import com.antelopeh.home.model.*;
 import com.antelopeh.home.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -126,7 +128,7 @@ public class OrderController extends BaseController {
     }
 
     @RequestMapping("orderRoom")
-    public ModelAndView orderRoom(HttpServletRequest request, HttpServletResponse response,Model model, String baseDate, String roomCode, int startTime, int endTime) throws ParseException {
+    public ModelAndView orderRoom(HttpServletRequest request, HttpServletResponse response, Model model, String baseDate, String roomCode, @PathVariable(value = "startTime",required = false) String startTime, @PathVariable(value = "endTime",required = false) String endTime) throws ParseException {
         String weekTime = WebUtils.getParameter(request, "weekTime");
         model.addAttribute(Constants._MENU_MAP_, WebUtils.getMenuMap(request));
         model.addAttribute("block", blockService.selectAll());
@@ -149,6 +151,9 @@ public class OrderController extends BaseController {
         example.setRoomCode(roomCode);
 //        example.setTimeStart(startTime + 1);
         example.setDateTime(date);
+
+        startTime = WebUtils.getParameter(request,"startTime");
+        endTime = WebUtils.getParameter(request,"endTime");
         model.addAttribute("startTime",startTime);
         model.addAttribute("endTime", endTime);
         model.addAttribute(Constants.EXAMPLE, example);
@@ -160,7 +165,7 @@ public class OrderController extends BaseController {
     @ResponseBody
     @RequestMapping("submitApply")
     public String submitApply(HttpServletRequest request, HttpServletResponse response, Model model, ApplyInfo applyInfo) {
-        String[] applyLessons = WebUtils.getParameterValues(request,"applyLesson");
+        String[] applyLessons = WebUtils.getParameterValues(request,"applyLessons");
         applyInfo.setApplyLesson(StringUtils.join(applyLessons,","));
         Operator operator = WebUtils.getOperator(request);
         applyInfo.setApplyPerson(operator.getCode());

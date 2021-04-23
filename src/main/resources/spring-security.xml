@@ -25,8 +25,9 @@
     <security:authentication-manager>
         <security:authentication-provider>
             <security:password-encoder hash="md5" base64="false" />
-            <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="select user_code as username, user_pwd as password, 'true'  as enabled  from user where user_code =  ?;"
-                                        authorities-by-username-query="SELECT user_code as username,ur.role_code as authority FROM `user_role` ur LEFT JOIN role r on r.role_code=ur.role_code WHERE user_code = ?;" />
+            <security:jdbc-user-service
+                    data-source-ref="dataSource" users-by-username-query="select user_code as username, user_pwd as password, 'true'  as enabled  from user where user_code =  ?;"
+                    authorities-by-username-query="SELECT user_code as username,ur.role_code as authority FROM `user_role` ur LEFT JOIN role r on r.role_code=ur.role_code WHERE user_code = ?;" />
         </security:authentication-provider>
     </security:authentication-manager>
 

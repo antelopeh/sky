@@ -120,14 +120,16 @@
                             </div>
                         </td>
                     </tr>
-                    <tr style="padding-top: 100px">
-                        <td colspan="6" class="text-right">
-                            <button class="btn btn-danger" type="button" onclick="rejectApply()">驳回</button>
-                        </td>
-                        <td colspan="6" class="text-right">
-                            <button class="btn btn-green" type="button" onclick="agreeApply()">同意</button>
-                        </td>
-                    </tr>
+                    <#if operator.code == "admin">
+                        <tr style="padding-top: 100px">
+                            <td colspan="6" class="text-right">
+                                <button class="btn btn-danger" type="button" onclick="rejectApply()">驳回</button>
+                            </td>
+                            <td colspan="6" class="text-right">
+                                <button class="btn btn-green" type="button" onclick="agreeApply()">同意</button>
+                            </td>
+                        </tr>
+                    </#if>
                     <input name="applyStatus" style="display: none" value="0">
                     </tbody>
                 </table>
@@ -135,10 +137,12 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="uuid" value=""/>
             </form>
+            <#if operator.code == "admin">
                 <span class="fa fa-remove title-icon" style="margin-left: 100px;color: whitesmoke" onclick="cancelReason(this)"></span>
                 <button class="btn btn-default editReason" type="button" onclick="editReason(this)">课程选择冲突</button>
                 <button class="btn btn-default editReason" type="button" onclick="editReason(this)">理由不充分</button>
                 <button class="btn btn-default editReason" type="button" onclick="editReason(this)">无权</button>
+            </#if>
         </div>
     </div>
 </div>
@@ -193,6 +197,12 @@
             }
         })
         </#if>
+
+        //初始化申请对象select
+        $("[name='applyObject']").find("option").each(function (){
+            if ($(this).val() == "${_result_.applyObject}")
+                $(this).prop("selected",true);
+        })
     })
 
     window.onload = function() {
@@ -221,6 +231,7 @@
         $('.dropdown-menu.inner:eq(3) li').eq(${i} - 1).addClass('disabled');
             </#list>
         </#list>
+
     }
 
     function autoCountWords(obj){

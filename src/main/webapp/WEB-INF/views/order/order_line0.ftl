@@ -35,7 +35,7 @@
             <tr role="row">
             <td style="vertical-align: middle;">第${i}课时</td>
             <#list 1..7 as j>
-                <td style="vertical-align: middle;"></td>
+                <td index="${j}" style="vertical-align: middle;"></td>
             </#list>
             </tr>
         </#list>
@@ -147,7 +147,7 @@
 
 
     <#list _result_ as item>
-        $('tbody').find('tr').eq(${item.timeStart-1}).find('td').eq(${item.weekTime}).html('${item.remark?split(':')[1]}');
+        $('tbody').find('tr').eq(${item.timeStart-1}).find('td').eq(${item.weekTime}).html('${item.remark}');
         if (${item.timeStart} != ${item.timeEnd})
         {
             if (${item.timeEnd} - ${item.timeStart} > 1){//遍历超过两个的单元格
@@ -238,7 +238,7 @@
     function applyLesson(){
         var length = $("td.selected").length
         if (length) {
-            var url = '${rc.contextPath}/order/orderRoom?baseDate=${_example_.dateTime?string ["YYYY-MM-dd"]}&weekTime=' + $("td.selected:eq(0)").parent().find('td').index($("td.selected:eq(0)")[0]) + '&roomCode=${_example_.roomCode}&startTime=' + $("td.selected:eq(0)").parent().parent().find('tr').index($("td.selected:eq(0)").parent())  + '&endTime=' + $("td.selected").eq(length-1).parent().parent().find('tr').index($("td.selected").eq(length-1).parent());
+            var url = '${rc.contextPath}/order/orderRoom?baseDate=${_example_.dateTime?string ["YYYY-MM-dd"]}&weekTime=' + $("td.selected:eq(0)").attr("index") + '&roomCode=${_example_.roomCode}&startTime=' + $("td.selected:eq(0)").parent().parent().find('tr').index($("td.selected:eq(0)").parent())  + '&endTime=' + $("td.selected").eq(length-1).parent().parent().find('tr').index($("td.selected").eq(length-1).parent());
             window.location.href = url;
         }else {
             layer.alert("未选课程",{icon: 6, closeBtn: 0},function (index){

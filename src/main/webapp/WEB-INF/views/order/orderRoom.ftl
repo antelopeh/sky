@@ -98,9 +98,10 @@
                         </td>
                     </tr>
                     <tr class="up">
-                        <td colspan="6">
-                            <textarea name="applyReason" class="form-control" rows="10" style="margin-left: 80px" maxlength="200" oninput="autoCountWords(this)"></textarea>
-                            <div style="position: relative;left: 1000px;bottom: 20px">
+                        <td class="hint" colspan="1"></td>
+                        <td colspan="5">
+                            <textarea name="applyReason" class="form-control" rows="10" maxlength="200" oninput="autoCountWords(this)"></textarea>
+                            <div style="position: relative;left: 800px;bottom: 20px">
                                 <span class="num_count" style="color: red" id="numCount">0</span>
                                 <span class="num_limit" style="color: red">/200</span>
                             </div>
@@ -114,6 +115,7 @@
                     <input name="applyStatus" style="display: none" value="0">
                     </tbody>
                 </table>
+                <input type="hidden" name="applyLessons" value="">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="uuid" value=""/>
             </form>
@@ -130,6 +132,10 @@
         $("[name='applyLesson']").find("option").each(function (){
             if (this.index >= ${startTime} && this.index <= ${endTime}){
                 this.selected = true;
+                if ($("[name='applyLessons']").val().length)
+                    $("[name='applyLessons']").val( $("[name='applyLessons']").val() + "," + this.value)
+                else
+                    $("[name='applyLessons']").val(this.value)
             }
         })
 

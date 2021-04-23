@@ -1,6 +1,7 @@
 <style>
     td.ellipsis{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
 </style>
+<#assign operator=Session["_SESSION_OPERATOR_"]>
 <div class="query-result">
     <table class="table table-bordered table-striped table-hover result-table text-center" role="grid" style="margin-bottom:10px;">
         <colgroup>
@@ -26,14 +27,14 @@
                 <td style="vertical-align: middle;">${item.messTitle}</td>
                 <td style="vertical-align: middle;">${item.sendUserCode}</td>
                 <td style="vertical-align: middle;">${item.sendTime?string("MM-dd")}</td>
-                <#if messType == 0>
+                <#if item.messType == 0>
                     <td style="vertical-align: middle;">公告</td>
                     <#if item.status == 0>
                         <td style="vertical-align: middle"><a onclick="" style="cursor:pointer;">未读</a></td>
                     <#else>
                         <td style="vertical-align: middle"><a onclick="" style="cursor:pointer;">已读</a></td>
                     </#if>
-                <#elseif messType == 1>
+                <#elseif item.messType == 1>
                     <td style="vertical-align: middle;">审核</td>
                     <#if operator.code == "admin">
                         <#if item.status == 0>
